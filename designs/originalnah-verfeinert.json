@@ -1,0 +1,44 @@
+{
+  "version": 3,
+  "build": "V3h",
+  "name": "Originalnah verfeinert",
+  "palette": "ral",
+  "suggestionMode": "tone",
+  "zones": {
+    "facadeMain": {
+      "hex": "#8a9977",
+      "code": "RAL 6021",
+      "name": "Blassgrün"
+    },
+    "base": {
+      "hex": "#6b665f",
+      "code": "RAL 7039",
+      "name": "Quarzgrau"
+    },
+    "dividersAll": {
+      "hex": "#c1877f",
+      "code": "RAL 3012",
+      "name": "Beigerot"
+    },
+    "dormerGable": {
+      "hex": "#c1877f",
+      "code": "RAL 3012",
+      "name": "Beigerot"
+    },
+    "door": {
+      "hex": "#2f4538",
+      "code": "RAL 6025",
+      "name": "Farngrün"
+    },
+    "surroundsOuterAll": {
+      "hex": "#c1877f",
+      "code": "RAL 3012",
+      "name": "Beigerot"
+    },
+    "windowBottomsAll": {
+      "hex": "#8a9977",
+      "code": "RAL 6021",
+      "name": "Blassgrün"
+    }
+  }
+}

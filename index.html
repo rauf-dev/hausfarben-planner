@@ -1,0 +1,1370 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hausfarben-Planer V3h</title>
+  <style>
+    :root {
+      --bg: #eef3f6;
+      --ground: #d8d1c6;
+      --wall: #b8c9aa;
+      --accent: #caa39f;
+      --base: #9b857d;
+      --roof: #8d4f38;
+      --door: #173e43;
+      --glass: #dcebf2;
+      --frame: #f7f7f4;
+      --line: #626b72;
+      --gutter: #b9bec2;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      background: #f5f6f7;
+      color: #202830;
+    }
+
+    header {
+      padding: 18px 24px;
+      background: white;
+      border-bottom: 1px solid #d6dce1;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    p {
+      margin: 6px 0 0;
+      color: #66717b;
+    }
+
+    main {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 18px;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .canvas {
+      background: white;
+      border: 1px solid #d6dce1;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      width: min(100%, calc((100vh - 40px) * 0.86));
+      max-height: calc(100vh - 36px);
+      position: sticky;
+      top: 0;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: linear-gradient(var(--bg) 0 84%, var(--ground) 84% 100%);
+    }
+
+    .roof { fill: var(--roof); stroke: #50352c; stroke-width: 2; }
+    .roof-outline { fill: none !important; stroke: #50352c; stroke-width: 2; pointer-events: none; }
+    .wall { fill: var(--wall); stroke: var(--line); stroke-width: 1.4; }
+    .accent { fill: var(--accent); stroke: var(--line); stroke-width: 1.1; }
+    .base { fill: var(--base); stroke: var(--line); stroke-width: 1.2; }
+    .door { fill: var(--door); stroke: var(--line); stroke-width: 1.5; }
+    .frame { fill: var(--frame); stroke: var(--line); stroke-width: 1.4; }
+    .glass { fill: var(--glass); stroke: #9aa6ad; stroke-width: 1; }
+    .detail { fill: none; stroke: var(--line); stroke-width: 1.1; }
+    .gutter { fill: var(--gutter); stroke: #6c747a; stroke-width: 1.2; }
+    .roof, .frame, .glass, .detail, .gutter { pointer-events: none; }
+
+    .meta {
+      padding: 14px 16px;
+      border-top: 1px solid #e0e4e8;
+      background: #fafbfc;
+      font-size: .88rem;
+      line-height: 1.5;
+      color: #5d6872;
+    }
+
+    code {
+      background: #eef1f4;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 430px;
+      gap: 18px;
+      align-items: stretch;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .house-column {
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .zone {
+      cursor: pointer;
+      transition: stroke-width .12s ease, filter .12s ease, opacity .12s ease;
+    }
+
+    .zone:hover,
+    .zone.hovered {
+      stroke: #ffffff !important;
+      stroke-width: 6 !important;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,.75));
+    }
+
+    .zone.selected {
+      stroke: #ffcc00 !important;
+      stroke-width: 8 !important;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,.85));
+    }
+
+    .zone-panel {
+      background: white;
+      border: 1px solid #d6dce1;
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+      height: 100%;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    .zone-panel h2 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .selection-bar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 10px;
+      background: #eef2f5;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      position: sticky;
+      top: -14px;
+      z-index: 4;
+      border: 1px solid #dce2e7;
+    }
+
+    .active-zone {
+      font-weight: 700;
+      font-size: .84rem;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mini-button {
+      border: 1px solid #c7cfd6;
+      background: white;
+      border-radius: 7px;
+      padding: 5px 8px;
+      cursor: pointer;
+      font-size: .76rem;
+      flex: none;
+    }
+
+    .zone-list {
+      display: grid;
+      gap: 5px;
+      max-height: 720px;
+      overflow: auto;
+    }
+
+    .zone-button {
+      width: 100%;
+      text-align: left;
+      border: 1px solid #dfe4e8;
+      background: #fff;
+      border-radius: 7px;
+      padding: 7px 8px;
+      cursor: pointer;
+      font: inherit;
+      font-size: .82rem;
+    }
+
+    .zone-button:hover {
+      background: #eef2f5;
+    }
+
+    .zone-button.selected {
+      outline: 2px solid #26323f;
+      background: #eef2f5;
+    }
+
+    .legend {
+      margin-top: 12px;
+      font-size: .78rem;
+      color: #64707a;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .zone-panel { position: static; }
+    }
+
+
+    .color-panel {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid #e0e4e8;
+    }
+
+    .color-panel h2 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+    }
+
+    .color-choice {
+      border: 1px solid #cfd6dc;
+      border-radius: 8px;
+      padding: 0;
+      overflow: hidden;
+      cursor: pointer;
+      background: white;
+    }
+
+    .color-choice:hover {
+      outline: 2px solid #26323f;
+    }
+
+    .color-swatch {
+      height: 38px;
+    }
+
+    .color-label {
+      padding: 5px 4px;
+      font-size: .72rem;
+      text-align: center;
+    }
+
+    .color-actions {
+      display: flex;
+      gap: 7px;
+      margin-top: 9px;
+      flex-wrap: wrap;
+    }
+
+    .status-line {
+      margin-top: 10px;
+      font-size: .78rem;
+      color: #63707a;
+      line-height: 1.4;
+    }
+
+
+    .palette-toolbar {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .palette-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 4px;
+      border-radius: 9px;
+      background: #eef2f5;
+    }
+
+    .palette-toggle button {
+      border: 0;
+      border-radius: 7px;
+      padding: 8px;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .palette-toggle button.active {
+      background: white;
+      box-shadow: 0 1px 5px rgba(0,0,0,.12);
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid #bcc5cc;
+      border-radius: 8px;
+      font: inherit;
+    }
+
+    .category-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .category-button {
+      border: 1px solid #ccd3d9;
+      background: #fff;
+      border-radius: 999px;
+      padding: 5px 8px;
+      cursor: pointer;
+      font-size: .75rem;
+    }
+
+    .category-button.active {
+      background: #26323f;
+      color: white;
+      border-color: #26323f;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .color-choice {
+      border: 1px solid #cfd6dc;
+      border-radius: 9px;
+      padding: 0;
+      overflow: hidden;
+      cursor: pointer;
+      background: white;
+      min-width: 0;
+    }
+
+    .color-choice:hover {
+      outline: 2px solid #26323f;
+    }
+
+    .color-swatch {
+      height: 48px;
+    }
+
+    .color-label {
+      padding: 6px;
+      text-align: left;
+      line-height: 1.25;
+    }
+
+    .color-code {
+      display: block;
+      font-size: .72rem;
+      font-weight: 800;
+    }
+
+    .color-name {
+      display: block;
+      margin-top: 2px;
+      font-size: .7rem;
+      color: #5d6872;
+    }
+
+    .palette-note {
+      font-size: .72rem;
+      line-height: 1.4;
+      color: #68737e;
+      margin-top: 10px;
+    }
+
+    .reset-row {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin: 12px 0 4px;
+    }
+
+    @media (max-width: 1000px) {
+      main {
+        height: auto;
+        overflow: visible;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .canvas {
+        width: min(100%, 760px);
+        max-height: none;
+        position: static;
+      }
+
+      .zone-panel {
+        height: auto;
+        max-height: 70vh;
+      }
+    }
+
+
+    .panel-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin: -2px 0 10px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid #e0e4e8;
+      color: #27313a;
+    }
+
+    .panel-title-row span {
+      font-size: .72rem;
+      color: #75808a;
+    }
+
+
+    .suggestions-panel {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid #e0e4e8;
+    }
+
+    .suggestions-panel h2 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .suggestions-intro {
+      margin: 0 0 10px;
+      font-size: .76rem;
+      color: #66717b;
+      line-height: 1.4;
+    }
+
+    .suggestion-modes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .suggestion-mode {
+      border: 1px solid #ccd3d9;
+      background: white;
+      border-radius: 8px;
+      padding: 7px 5px;
+      font-size: .72rem;
+      cursor: pointer;
+    }
+
+    .suggestion-mode.active {
+      background: #26323f;
+      color: white;
+      border-color: #26323f;
+    }
+
+    .suggestion-empty {
+      padding: 10px;
+      border-radius: 8px;
+      background: #f3f5f7;
+      color: #66717b;
+      font-size: .76rem;
+      line-height: 1.4;
+    }
+
+    .suggestion-card {
+      border: 1px solid #d8dee3;
+      border-radius: 9px;
+      padding: 9px;
+      margin-bottom: 8px;
+      background: #fff;
+    }
+
+    .suggestion-card-title {
+      font-size: .78rem;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .suggestion-colors {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .suggestion-color {
+      border: 1px solid #ccd3d9;
+      border-radius: 8px;
+      padding: 0;
+      overflow: hidden;
+      background: white;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .suggestion-color:hover {
+      outline: 2px solid #26323f;
+    }
+
+    .suggestion-color .sw {
+      height: 34px;
+    }
+
+    .suggestion-color .tx {
+      padding: 5px;
+      font-size: .66rem;
+      line-height: 1.25;
+    }
+
+    .suggestion-color .tx strong {
+      display: block;
+      font-size: .68rem;
+    }
+
+    .suggestion-apply-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .suggestion-apply-row button {
+      border: 1px solid #c7cfd6;
+      background: white;
+      border-radius: 7px;
+      padding: 6px 8px;
+      font-size: .72rem;
+      cursor: pointer;
+    }
+
+    .suggestion-note {
+      font-size: .7rem;
+      color: #74808a;
+      line-height: 1.4;
+      margin-top: 8px;
+    }
+
+
+.design-panel,.export-panel{margin-top:14px;padding-top:14px;border-top:1px solid #e0e4e8}.design-panel h2,.export-panel h2{margin:0 0 8px;font-size:1rem}.design-name{width:100%;padding:9px 10px;border:1px solid #bcc5cc;border-radius:8px;font:inherit;margin-bottom:8px}.design-actions,.export-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.design-actions button,.design-actions label,.export-actions button{border:1px solid #c7cfd6;background:#fff;border-radius:8px;padding:8px;cursor:pointer;text-align:center;font-size:.75rem}.design-actions input[type=file]{display:none}.saved-designs{display:grid;gap:6px;margin-top:10px}.saved-design-row{display:grid;grid-template-columns:1fr auto auto;gap:5px}.saved-design-row button{border:1px solid #d5dce1;background:#fff;border-radius:7px;padding:7px;cursor:pointer;font-size:.73rem}.saved-design-row .load{text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.export-note{margin-top:8px;font-size:.7rem;color:#71808a;line-height:1.4}
+
+  
+.preset-panel{margin-top:14px;padding-top:14px;border-top:1px solid #e0e4e8}
+.preset-panel h2{margin:0 0 8px;font-size:1rem}
+.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.preset-card{border:1px solid #d3dae0;border-radius:9px;background:#fff;padding:8px;cursor:pointer;text-align:left}
+.preset-card:hover{outline:2px solid #26323f}
+.preset-swatches{display:flex;height:24px;border-radius:6px;overflow:hidden;margin-bottom:6px}
+.preset-swatches span{flex:1}
+.preset-name{font-size:.76rem;font-weight:800}
+.preset-desc{font-size:.68rem;color:#68737e;margin-top:3px;line-height:1.3}
+</style>
+</head>
+<body>
+<main>
+  <div class="layout">
+    <div class="house-column">
+      <div class="canvas">
+        <svg id="house" viewBox="0 0 860 1000" role="img" aria-label="Vektorzeichnung der Hausfassade"></svg>
+      </div>
+    </div>
+
+    <aside class="zone-panel">
+      <div class="panel-title-row">
+        <strong>Hausfarben-Planer</strong>
+        <span>V3h</span>
+      </div>
+
+      <div class="selection-bar">
+        <div id="activeZone" class="active-zone">Kein Bereich ausgewählt</div>
+        <button id="clearSelectionBtn" class="mini-button">Auswahl aufheben</button>
+      </div>
+
+      <div class="palette-toolbar">
+        <div class="palette-toggle">
+          <button id="ralPaletteBtn" class="active">RAL</button>
+          <button id="caparolPaletteBtn">Caparol</button>
+        </div>
+
+        <input id="paletteSearch" class="search-input" placeholder="Farbname oder Code suchen">
+        <div id="categoryRow" class="category-row"></div>
+      </div>
+
+      <div id="colorGrid" class="color-grid"></div>
+
+      <div class="reset-row">
+        <button id="restoreZoneBtn" class="zone-button">Aktiven Bereich zurücksetzen</button>
+        <button id="restoreAllBtn" class="zone-button">Alles zurücksetzen</button>
+      </div>
+
+      <div class="status-line">Bereich am Haus auswählen und anschließend einen Farbton anklicken.</div>
+      <div id="paletteNote" class="palette-note"></div>
+
+      <section class="suggestions-panel">
+        <h2>Passende Farben</h2>
+        <p class="suggestions-intro">
+          Wähle zuerst eine Hauptfarbe für die Fassade. Danach schlägt das Tool konservative Kombinationen für Akzentflächen, Sockel und Tür vor.
+        </p>
+
+        <div class="suggestion-modes">
+          <button class="suggestion-mode active" data-mode="tone">Ton-in-Ton</button>
+          <button class="suggestion-mode" data-mode="contrast">Dezenter Kontrast</button>
+          <button class="suggestion-mode" data-mode="classic">Klassisch mit Akzent</button>
+        </div>
+
+        <div id="suggestionsContent">
+          <div class="suggestion-empty">
+            Noch keine Hauptfarbe gewählt.
+          </div>
+        </div>
+
+      </section>
+      <section class="preset-panel">
+<h2>Konservative Beispielentwürfe</h2>
+<div id="presetGrid" class="preset-grid"></div>
+</section>
+<section class="design-panel"><h2>Entwürfe</h2><input id="designName" class="design-name" value="Neue Variante"><div class="design-actions"><button id="saveDesignBtn">Im Browser speichern</button><button id="exportJsonBtn">JSON exportieren</button><label>JSON importieren<input id="importJsonInput" type="file" accept=".json,application/json"></label><button id="showSavedBtn">Gespeicherte anzeigen</button></div><div id="savedDesigns" class="saved-designs"></div></section>
+      <section class="export-panel"><h2>Bildexport</h2><div class="export-actions"><button id="exportPngBtn">Haus als PNG</button><button id="exportSheetBtn">Gestaltungsblatt</button></div><div class="export-note">Gestaltungsblatt mit Variantenname, Palette und Farben je Zone.</div></section>
+    </aside>
+  </div>
+</main>
+
+<script>
+const svg = document.getElementById('house');
+const NS = 'http://www.w3.org/2000/svg';
+
+const measured = {
+  houseWidth: 698,
+  houseHeight: 850,
+  dividerBottomFromGround: 310,
+  baseHeight: 50,
+  doorWidth: 96,
+  doorHeight: 200,
+  smallWindowWidth: 45,
+  smallWindowHeight: 56,
+  largeWindowWidth: 195,
+  largeWindowHeight: 170,
+  canopyWidth: 140,
+  canopyHeight: 45
+};
+
+const estimated = {
+  dormerWidth: 360,
+  dormerFacadeTopFromTip: 125,
+  roofSpringFromTip: 330,
+  dividerHeight: 16,
+  upperLeftWindowWidth: 145,
+  upperLeftWindowHeight: 160,
+  upperRightWindowWidth: 170,
+  upperRightWindowHeight: 160,
+  dormerWindowWidth: 115,
+  dormerWindowHeight: 140
+};
+
+function add(tag, attrs, parent = svg) {
+  const el = document.createElementNS(NS, tag);
+  Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+  parent.appendChild(el);
+  return el;
+}
+
+const zoneNames = {
+  facadeMain: 'Fassade – Hauptfarbe',
+  base: 'Sockel',
+  dividersAll: 'Horizontale Trennlinien',
+  dormerGable: 'Gaubengiebel – Dreieck',
+  door: 'Haustür',
+  surroundsOuterAll: 'Fenster-/Türumrandungen – links/oben/rechts',
+  windowBottomsAll: 'Fensterumrandungen – unten'
+};
+
+const originalColors = {};
+
+const palettes = {
+  ral: [
+    { code:'RAL 9010', name:'Reinweiß', hex:'#f1eee8', category:'Weiß' },
+    { code:'RAL 9001', name:'Cremeweiß', hex:'#e9e0cf', category:'Weiß' },
+    { code:'RAL 1013', name:'Perlweiß', hex:'#e6e0d4', category:'Weiß' },
+    { code:'RAL 1015', name:'Hellelfenbein', hex:'#e6d2a5', category:'Beige' },
+    { code:'RAL 1001', name:'Beige', hex:'#c7a97f', category:'Beige' },
+    { code:'RAL 1019', name:'Graubeige', hex:'#a99c8d', category:'Beige' },
+    { code:'RAL 7032', name:'Kieselgrau', hex:'#b8b5a2', category:'Grau' },
+    { code:'RAL 7044', name:'Seidengrau', hex:'#cac4b9', category:'Grau' },
+    { code:'RAL 7030', name:'Steingrau', hex:'#928e85', category:'Grau' },
+    { code:'RAL 7039', name:'Quarzgrau', hex:'#6b665f', category:'Grau' },
+    { code:'RAL 7006', name:'Beigegrau', hex:'#756f61', category:'Grau' },
+    { code:'RAL 7016', name:'Anthrazitgrau', hex:'#383e42', category:'Dunkel' },
+    { code:'RAL 6021', name:'Blassgrün', hex:'#8a9977', category:'Grün' },
+    { code:'RAL 6019', name:'Weißgrün', hex:'#b7cdb5', category:'Grün' },
+    { code:'RAL 6025', name:'Farngrün', hex:'#2f4538', category:'Grün' },
+    { code:'RAL 6003', name:'Olivgrün', hex:'#4b5140', category:'Grün' },
+    { code:'RAL 6011', name:'Resedagrün', hex:'#6c7c59', category:'Grün' },
+    { code:'RAL 3014', name:'Altrosa', hex:'#c88c95', category:'Rosé/Terrakotta' },
+    { code:'RAL 3012', name:'Beigerot', hex:'#c1877f', category:'Rosé/Terrakotta' },
+    { code:'RAL 8004', name:'Kupferbraun', hex:'#8f4e35', category:'Rosé/Terrakotta' },
+    { code:'RAL 8023', name:'Orangebraun', hex:'#a65e37', category:'Rosé/Terrakotta' },
+    { code:'RAL 8012', name:'Rotbraun', hex:'#5e2f2a', category:'Rosé/Terrakotta' }
+  ],
+  caparol: [
+    { code:'3D Palazzo 10', name:'Helles warmes Weiß', hex:'#eee9df', category:'Weiß' },
+    { code:'3D Palazzo 35', name:'Warmes Off-White', hex:'#e2d7c7', category:'Weiß' },
+    { code:'3D Ginster 15', name:'Helles Sandbeige', hex:'#dfcfaa', category:'Beige' },
+    { code:'3D Ginster 35', name:'Gedämpftes Beige', hex:'#c7b184', category:'Beige' },
+    { code:'3D Granit 15', name:'Sehr helles Grau', hex:'#d6d4ce', category:'Grau' },
+    { code:'3D Granit 30', name:'Mittleres Steingrau', hex:'#aaa69d', category:'Grau' },
+    { code:'3D Granit 55', name:'Dunkles Graubraun', hex:'#68635d', category:'Grau' },
+    { code:'3D Patina 20', name:'Helles Salbeigrün', hex:'#b8c2a9', category:'Grün' },
+    { code:'3D Patina 35', name:'Gedämpftes Grün', hex:'#8e9c7f', category:'Grün' },
+    { code:'3D Patina 55', name:'Dunkles Olivgrün', hex:'#58624f', category:'Grün' },
+    { code:'3D Rose 20', name:'Helles Altrosa', hex:'#d8b1aa', category:'Rosé/Terrakotta' },
+    { code:'3D Rose 35', name:'Gedämpftes Rosé', hex:'#bd8d87', category:'Rosé/Terrakotta' },
+    { code:'3D Siena 40', name:'Ton / Terrakotta', hex:'#ad7659', category:'Rosé/Terrakotta' },
+    { code:'3D Siena 55', name:'Dunkles Terrakotta', hex:'#7f4f3d', category:'Rosé/Terrakotta' },
+    { code:'3D Onyx 90', name:'Dunkles Anthrazit', hex:'#34383a', category:'Dunkel' }
+  ]
+};
+
+let activePalette = 'ral';
+let activeCategory = 'Alle';
+
+function captureOriginalColors() {
+  document.querySelectorAll('.zone').forEach(el => {
+    const id = el.dataset.zoneId;
+    if (!(id in originalColors)) originalColors[id] = [];
+    originalColors[id].push(getComputedStyle(el).fill);
+  });
+}
+
+function applyColorToZone(id, color) {
+  if (!id) {
+    alert('Bitte zuerst einen Bereich auswählen.');
+    return;
+  }
+
+  document.querySelectorAll(`.zone[data-zone-id="${id}"]`).forEach(el => {
+    el.style.fill = color.hex;
+    el.dataset.colorCode = color.code;
+    el.dataset.colorName = color.name;
+  });
+
+  if (id === 'facadeMain') {
+    selectedMainFacadeColor = color;
+    renderSuggestions();
+  }
+
+  document.querySelector('.status-line').textContent =
+    `${zoneNames[id]}: ${color.code} – ${color.name}`;
+}
+
+function restoreZone(id) {
+  if (!id || !originalColors[id]) return;
+  document.querySelectorAll(`.zone[data-zone-id="${id}"]`).forEach((el, index) => {
+    el.style.fill = originalColors[id][index];
+    delete el.dataset.colorCode;
+    delete el.dataset.colorName;
+  });
+
+  if (id === 'facadeMain') {
+    selectedMainFacadeColor = null;
+    renderSuggestions();
+  }
+}
+
+function restoreAllZones() {
+  Object.keys(originalColors).forEach(restoreZone);
+  selectedMainFacadeColor = null;
+  renderSuggestions();
+}
+
+function renderCategories() {
+  const categories = ['Alle', ...new Set(palettes[activePalette].map(c => c.category))];
+  const row = document.getElementById('categoryRow');
+
+  row.innerHTML = categories.map(category => `
+    <button class="category-button ${category === activeCategory ? 'active' : ''}"
+            data-category="${category}">${category}</button>
+  `).join('');
+
+  row.querySelectorAll('.category-button').forEach(button => {
+    button.addEventListener('click', () => {
+      activeCategory = button.dataset.category;
+      renderCategories();
+      renderColorGrid();
+    });
+  });
+}
+
+function renderColorGrid() {
+  const search = document.getElementById('paletteSearch').value.trim().toLowerCase();
+  const colors = palettes[activePalette].filter(color => {
+    const matchesCategory = activeCategory === 'Alle' || color.category === activeCategory;
+    const matchesSearch = `${color.code} ${color.name}`.toLowerCase().includes(search);
+    return matchesCategory && matchesSearch;
+  });
+
+  const grid = document.getElementById('colorGrid');
+  grid.innerHTML = colors.map(color => `
+    <button class="color-choice"
+            data-code="${color.code}"
+            title="${color.code} – ${color.name}">
+      <div class="color-swatch" style="background:${color.hex}"></div>
+      <div class="color-label">
+        <span class="color-code">${color.code}</span>
+        <span class="color-name">${color.name}</span>
+      </div>
+    </button>
+  `).join('');
+
+  grid.querySelectorAll('.color-choice').forEach(button => {
+    button.addEventListener('click', () => {
+      const color = colors.find(item => item.code === button.dataset.code);
+      applyColorToZone(selectedZoneId, color);
+    });
+  });
+
+  document.getElementById('paletteNote').textContent =
+    activePalette === 'ral'
+      ? 'Kuratiertes RAL-Classic-Sortiment für konservative Fassadenentwürfe. Die zusammengefassten Zonen erleichtern ein einheitliches Farbkonzept.'
+      : 'Kuratiertes Caparol-3D-System-PLUS-Sortiment. Bildschirmdarstellung ist unverbindlich; Endauswahl mit Original-Farbfächer oder Musterfläche prüfen.';
+}
+
+function setPalette(palette) {
+  activePalette = palette;
+  activeCategory = 'Alle';
+  selectedMainFacadeColor = null;
+
+  document.getElementById('ralPaletteBtn').classList.toggle('active', palette === 'ral');
+  document.getElementById('caparolPaletteBtn').classList.toggle('active', palette === 'caparol');
+
+  renderCategories();
+  renderColorGrid();
+  renderSuggestions();
+}
+
+
+
+function snapshotZones(){const out={};Object.keys(zoneNames).forEach(id=>{const e=document.querySelector(`.zone[data-zone-id="${id}"]`);if(e)out[id]={hex:e.style.fill||getComputedStyle(e).fill,code:e.dataset.colorCode||'Original',name:e.dataset.colorName||'Original'};});return out;}
+function applySnapshot(s){Object.entries(s||{}).forEach(([id,v])=>document.querySelectorAll(`.zone[data-zone-id="${id}"]`).forEach(e=>{e.style.fill=v.hex;if(v.code&&v.code!=='Original')e.dataset.colorCode=v.code;else delete e.dataset.colorCode;if(v.name&&v.name!=='Original')e.dataset.colorName=v.name;else delete e.dataset.colorName;}));const f=s?.facadeMain;selectedMainFacadeColor=f&&f.code!=='Original'?{code:f.code,name:f.name,hex:f.hex,category:''}:null;renderSuggestions();}
+function payload(){return{version:3,build:'V3h',name:document.getElementById('designName').value.trim()||'Unbenannte Variante',palette:activePalette,suggestionMode,zones:snapshotZones(),savedAt:new Date().toISOString()};}
+function loadPayload(d){if(!d?.zones)throw new Error();document.getElementById('designName').value=d.name||'Import';suggestionMode=d.suggestionMode||'tone';document.querySelectorAll('.suggestion-mode').forEach(e=>e.classList.toggle('active',e.dataset.mode===suggestionMode));setPalette(d.palette==='caparol'?'caparol':'ral');applySnapshot(d.zones);clearSelection();document.querySelector('.status-line').textContent=`Entwurf „${d.name||'Import'}“ geladen.`;}
+function safeName(n){return(n||'hausfarben').trim().replace(/[^a-zA-Z0-9äöüÄÖÜß_-]+/g,'_')||'hausfarben';}
+function download(content,name,type){const b=content instanceof Blob?content:new Blob([content],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+function saveLocal(){const d=payload(),all=JSON.parse(localStorage.getItem('hausfarbenV3g')||'[]');all.push(d);localStorage.setItem('hausfarbenV3g',JSON.stringify(all));renderSaved();document.querySelector('.status-line').textContent=`Entwurf „${d.name}“ gespeichert.`;}
+function renderSaved(){const c=document.getElementById('savedDesigns'),all=JSON.parse(localStorage.getItem('hausfarbenV3g')||'[]');if(!all.length){c.innerHTML='<div class="suggestion-empty">Keine gespeicherten Entwürfe.</div>';return;}c.innerHTML=all.map((d,i)=>`<div class="saved-design-row"><button class="load" data-l="${i}">${d.name}</button><button data-j="${i}">JSON</button><button data-d="${i}">×</button></div>`).join('');c.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>loadPayload(all[+b.dataset.l]));c.querySelectorAll('[data-j]').forEach(b=>b.onclick=()=>download(JSON.stringify(all[+b.dataset.j],null,2),safeName(all[+b.dataset.j].name)+'.json','application/json'));c.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{all.splice(+b.dataset.d,1);localStorage.setItem('hausfarbenV3g',JSON.stringify(all));renderSaved();});}
+function svgString(){const c=document.getElementById('house').cloneNode(true);c.setAttribute('xmlns','http://www.w3.org/2000/svg');c.querySelectorAll('.selected,.hovered').forEach(e=>e.classList.remove('selected','hovered'));return new XMLSerializer().serializeToString(c);}
+function svgImage(){return new Promise((res,rej)=>{const u=URL.createObjectURL(new Blob([svgString()],{type:'image/svg+xml'})),i=new Image();i.onload=()=>{URL.revokeObjectURL(u);res(i)};i.onerror=rej;i.src=u;});}
+async function exportPng(sheet=false){const img=await svgImage(),d=payload(),c=document.createElement('canvas');c.width=sheet?1600:1290;c.height=sheet?1950:1500;const x=c.getContext('2d');x.fillStyle=sheet?'#fff':'#eef3f6';x.fillRect(0,0,c.width,c.height);if(!sheet)x.drawImage(img,0,0,c.width,c.height);else{x.fillStyle='#1f2933';x.font='bold 42px Arial';x.fillText(d.name,55,65);x.font='22px Arial';x.fillStyle='#5f6a74';x.fillText(`Palette: ${d.palette==='caparol'?'Caparol':'RAL'}`,55,100);x.fillStyle='#eef3f6';x.fillRect(55,130,900,1650);x.drawImage(img,55,130,900,1047);let y=180;x.fillStyle='#1f2933';x.font='bold 26px Arial';x.fillText('Verwendete Farben',1010,150);Object.entries(d.zones).forEach(([id,v])=>{x.fillStyle=v.hex;x.fillRect(1010,y-18,28,28);x.strokeStyle='#777';x.strokeRect(1010,y-18,28,28);x.fillStyle='#1f2933';x.font='bold 17px Arial';x.fillText(zoneNames[id]||id,1050,y);x.font='15px Arial';x.fillStyle='#5f6a74';x.fillText(`${v.code} – ${v.name}`,1050,y+22);y+=64;});x.fillStyle='#6b7280';x.font='14px Arial';x.fillText('Bildschirmfarben sind unverbindlich. Endauswahl mit Original-Farbfächer oder Musterfläche prüfen.',55,1900);}c.toBlob(b=>download(b,safeName(d.name)+(sheet?'_Gestaltungsblatt':'')+'.png','image/png'),'image/png');}
+
+let suggestionMode = 'tone';
+let selectedMainFacadeColor = null;
+
+const zoneTargets = {
+  accent: ['dividersAll', 'dormerGable', 'surroundsOuterAll', 'windowBottomsAll'],
+  base: ['base'],
+  door: ['door']
+};
+
+function hexToRgb(hex) {
+  const value = hex.replace('#', '');
+  return {
+    r: parseInt(value.substring(0, 2), 16),
+    g: parseInt(value.substring(2, 4), 16),
+    b: parseInt(value.substring(4, 6), 16)
+  };
+}
+
+function rgbToHsl({r, g, b}) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0;
+  const l = (max + min) / 2;
+  const d = max - min;
+
+  if (d !== 0) {
+    s = d / (1 - Math.abs(2 * l - 1));
+    switch (max) {
+      case r: h = 60 * (((g - b) / d) % 6); break;
+      case g: h = 60 * (((b - r) / d) + 2); break;
+      default: h = 60 * (((r - g) / d) + 4);
+    }
+  }
+  if (h < 0) h += 360;
+  return { h, s: s * 100, l: l * 100 };
+}
+
+function colorDistance(a, b) {
+  const A = rgbToHsl(hexToRgb(a.hex));
+  const B = rgbToHsl(hexToRgb(b.hex));
+  const hue = Math.min(Math.abs(A.h - B.h), 360 - Math.abs(A.h - B.h)) / 180;
+  const sat = Math.abs(A.s - B.s) / 100;
+  const light = Math.abs(A.l - B.l) / 100;
+  return hue * 0.5 + sat * 0.2 + light * 0.3;
+}
+
+function scoreColor(main, candidate, role, mode) {
+  const m = rgbToHsl(hexToRgb(main.hex));
+  const c = rgbToHsl(hexToRgb(candidate.hex));
+  const hueDiff = Math.min(Math.abs(m.h - c.h), 360 - Math.abs(m.h - c.h));
+  const lightDiff = Math.abs(m.l - c.l);
+  const satPenalty = Math.max(0, c.s - 55) * 0.03;
+  let score = 100;
+
+  if (mode === 'tone') {
+    score -= hueDiff * 0.45;
+    score -= Math.abs(lightDiff - (role === 'base' ? 25 : 15)) * 1.2;
+  } else if (mode === 'contrast') {
+    const targetHue = role === 'accent' ? 55 : 25;
+    score -= Math.abs(hueDiff - targetHue) * 0.5;
+    score -= Math.abs(lightDiff - (role === 'door' ? 35 : 22)) * 0.9;
+  } else {
+    const targetHue = role === 'accent' ? 95 : 35;
+    score -= Math.abs(hueDiff - targetHue) * 0.42;
+    score -= Math.abs(lightDiff - (role === 'door' ? 42 : 28)) * 0.8;
+  }
+
+  if (role === 'base' && c.l > 72) score -= 28;
+  if (role === 'door' && c.l > 62) score -= 38;
+  if (role === 'accent' && c.l < 28) score -= 20;
+  score -= satPenalty;
+
+  return score;
+}
+
+function getSuggestions(role, count = 3) {
+  if (!selectedMainFacadeColor) return [];
+  return palettes[activePalette]
+    .filter(c => c.code !== selectedMainFacadeColor.code)
+    .map(c => ({ ...c, score: scoreColor(selectedMainFacadeColor, c, role, suggestionMode) }))
+    .sort((a, b) => b.score - a.score)
+    .filter((c, index, arr) => index === arr.findIndex(x => colorDistance(c, x) < 0.07))
+    .slice(0, count);
+}
+
+function applyColorToLogicalZone(id, color) {
+  document.querySelectorAll(`.zone[data-zone-id="${id}"]`).forEach(el => {
+    el.style.fill = color.hex;
+    el.dataset.colorCode = color.code;
+    el.dataset.colorName = color.name;
+  });
+}
+
+function applySuggestedRole(role, color) {
+  zoneTargets[role].forEach(id => applyColorToLogicalZone(id, color));
+  document.querySelector('.status-line').textContent =
+    `${role === 'accent' ? 'Akzentflächen' : role === 'base' ? 'Sockel' : 'Haustür'}: ${color.code} – ${color.name}`;
+}
+
+function renderSuggestions() {
+  const container = document.getElementById('suggestionsContent');
+
+  if (!selectedMainFacadeColor) {
+    container.innerHTML = '<div class="suggestion-empty">Noch keine Hauptfarbe gewählt.</div>';
+    return;
+  }
+
+  const accent = getSuggestions('accent');
+  const base = getSuggestions('base');
+  const door = getSuggestions('door');
+
+  const renderGroup = (title, role, colors) => `
+    <div class="suggestion-card">
+      <div class="suggestion-card-title">${title}</div>
+      <div class="suggestion-colors">
+        ${colors.map(color => `
+          <button class="suggestion-color"
+                  data-role="${role}"
+                  data-code="${color.code}">
+            <div class="sw" style="background:${color.hex}"></div>
+            <div class="tx">
+              <strong>${color.code}</strong>
+              ${color.name}
+            </div>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = `
+    <div class="suggestion-card">
+      <div class="suggestion-card-title">
+        Hauptfarbe: ${selectedMainFacadeColor.code} – ${selectedMainFacadeColor.name}
+      </div>
+    </div>
+    ${renderGroup('Akzentflächen', 'accent', accent)}
+    ${renderGroup('Sockel', 'base', base)}
+    ${renderGroup('Haustür', 'door', door)}
+    <div class="suggestion-note">
+      Die Vorschläge basieren auf konservativen Regeln für Farbton, Helligkeit und Kontrast. Sie ersetzen keine Musterfläche an der realen Fassade.
+    </div>
+  `;
+
+  container.querySelectorAll('.suggestion-color').forEach(button => {
+    button.addEventListener('click', () => {
+      const role = button.dataset.role;
+      const color = palettes[activePalette].find(c => c.code === button.dataset.code);
+      applySuggestedRole(role, color);
+    });
+  });
+}
+
+let selectedZoneId = null;
+
+function setGroupHover(id, on) {
+  document.querySelectorAll(`.zone[data-zone-id="${id}"]`).forEach(el => {
+    el.classList.toggle('hovered', on);
+  });
+}
+
+function makeZone(el, id) {
+  el.classList.add('zone');
+  el.dataset.zoneId = id;
+  el.setAttribute('tabindex', '0');
+  el.setAttribute('aria-label', zoneNames[id] || id);
+  el.addEventListener('click', event => {
+    event.stopPropagation();
+    selectZone(id);
+  });
+  el.addEventListener('mouseenter', () => setGroupHover(id, true));
+  el.addEventListener('mouseleave', () => setGroupHover(id, false));
+  el.addEventListener('focus', () => setGroupHover(id, true));
+  el.addEventListener('blur', () => setGroupHover(id, false));
+  el.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      selectZone(id);
+    }
+  });
+  return el;
+}
+
+function selectZone(id) {
+  selectedZoneId = id;
+  document.querySelectorAll('.zone').forEach(el => {
+    el.classList.toggle('selected', el.dataset.zoneId === id);
+  });
+  document.getElementById('activeZone').textContent = zoneNames[id] || id;
+}
+
+function clearSelection() {
+  selectedZoneId = null;
+  document.querySelectorAll('.zone').forEach(el => el.classList.remove('selected'));
+  document.getElementById('activeZone').textContent = 'Kein Bereich ausgewählt';
+}
+
+
+function drawWindow(x, y, width, height, ids, trim = 8) {
+  makeZone(add('rect', { x: x - trim, y: y - trim, width: width + trim * 2, height: trim, class: 'accent' }), ids.outer);
+  makeZone(add('rect', { x: x - trim, y, width: trim, height, class: 'accent' }), ids.outer);
+  makeZone(add('rect', { x: x + width, y, width: trim, height, class: 'accent' }), ids.outer);
+  makeZone(add('rect', { x: x - trim, y: y + height, width: width + trim * 2, height: trim, class: 'accent' }), ids.bottom);
+
+  add('rect', { x, y, width, height, class: 'frame' });
+  add('rect', { x: x + 5, y: y + 5, width: width - 10, height: height - 10, class: 'glass' });
+  add('line', { x1: x + width / 2, y1: y + 5, x2: x + width / 2, y2: y + height - 5, class: 'detail' });
+  add('line', { x1: x + 5, y1: y + height / 2, x2: x + width - 5, y2: y + height / 2, class: 'detail' });
+}
+
+
+(function buildHouse() {
+  const ox = 81;
+  const oy = 80;
+  const W = measured.houseWidth;
+  const H = measured.houseHeight;
+
+  const groundY = oy + H;
+  const dividerBottomY = groundY - measured.dividerBottomFromGround;
+  const dividerTopY = dividerBottomY - estimated.dividerHeight;
+  const baseTopY = groundY - measured.baseHeight;
+
+  const dormerW = estimated.dormerWidth;
+  const dormerX = ox + (W - dormerW) / 2;
+  const roofSpringY = oy + estimated.roofSpringFromTip;
+  const dormerFacadeTopY = oy + estimated.dormerFacadeTopFromTip;
+
+  // Ground
+  add('rect', { x: 35, y: groundY, width: 790, height: 45, fill: 'var(--ground)' });
+
+  // Roof planes
+  add('polygon', {
+    points: `${ox},${roofSpringY} ${dormerX},${roofSpringY - 30} ${dormerX},${roofSpringY} ${ox},${roofSpringY + 42}`,
+    class: 'roof'
+  });
+  add('polygon', {
+    points: `${dormerX + dormerW},${roofSpringY - 30} ${ox + W},${roofSpringY} ${ox + W},${roofSpringY + 42} ${dormerX + dormerW},${roofSpringY}`,
+    class: 'roof'
+  });
+
+  // Main wall areas
+  makeZone(add('rect', { x: ox, y: roofSpringY, width: W, height: dividerTopY - roofSpringY, class: 'wall' }), 'facadeMain');
+  makeZone(add('rect', { x: ox, y: dividerBottomY, width: W, height: groundY - dividerBottomY, class: 'wall' }), 'facadeMain');
+  makeZone(add('rect', { x: ox, y: dividerTopY, width: W, height: estimated.dividerHeight, class: 'accent' }), 'dividersAll');
+  makeZone(add('rect', { x: ox, y: baseTopY, width: W, height: measured.baseHeight, class: 'base' }), 'base');
+
+  // Four side accent strips
+  const sideW = (W - dormerW) / 2;
+  makeZone(add('rect', { x: ox, y: roofSpringY - 30, width: sideW, height: 15, class: 'accent' }), 'dividersAll');
+  makeZone(add('rect', { x: ox, y: roofSpringY - 15, width: sideW, height: 15, class: 'accent' }), 'dividersAll');
+  makeZone(add('rect', { x: dormerX + dormerW, y: roofSpringY - 30, width: sideW, height: 15, class: 'accent' }), 'dividersAll');
+  makeZone(add('rect', { x: dormerX + dormerW, y: roofSpringY - 15, width: sideW, height: 15, class: 'accent' }), 'dividersAll');
+
+  // Dormer
+  makeZone(add('rect', {
+    x: dormerX,
+    y: dormerFacadeTopY,
+    width: dormerW,
+    height: roofSpringY - dormerFacadeTopY,
+    class: 'wall'
+  }), 'facadeMain');
+  makeZone(add('polygon', {
+    points: `${dormerX - 10},${dormerFacadeTopY} ${ox + W / 2},${oy} ${dormerX + dormerW + 10},${dormerFacadeTopY}`,
+    class: 'accent'
+  }), 'dormerGable');
+  add('polyline', {
+    points: `${dormerX - 15},${dormerFacadeTopY} ${ox + W / 2},${oy - 4} ${dormerX + dormerW + 15},${dormerFacadeTopY}`,
+    fill: 'none',
+    class: 'roof-outline'
+  });
+
+  // Ground-floor horizontal layout: 130 | 96 | 177 | 195 | 100
+  const doorX = ox + 130;
+  const doorY = groundY - measured.doorHeight;
+  const largeWindowX = ox + 130 + measured.doorWidth + 177;
+  const largeWindowY = baseTopY - measured.largeWindowHeight - 20;
+  const smallWindowX = ox + 30;
+  const smallWindowY = doorY + 35;
+
+  // Door surround
+  makeZone(add('rect', { x: doorX - 12, y: doorY - 12, width: measured.doorWidth + 24, height: 12, class: 'accent' }), 'surroundsOuterAll');
+  makeZone(add('rect', { x: doorX - 12, y: doorY, width: 12, height: measured.doorHeight, class: 'accent' }), 'surroundsOuterAll');
+  makeZone(add('rect', { x: doorX + measured.doorWidth, y: doorY, width: 12, height: measured.doorHeight, class: 'accent' }), 'surroundsOuterAll');
+  add('rect', { x: doorX - 12, y: doorY + measured.doorHeight, width: measured.doorWidth + 24, height: 10, class: 'accent' });
+
+  // Door
+  makeZone(add('rect', { x: doorX, y: doorY, width: measured.doorWidth, height: measured.doorHeight, class: 'door' }), 'door');
+  add('rect', { x: doorX + 14, y: doorY + 18, width: 26, height: 58, class: 'glass' });
+  add('rect', { x: doorX + 56, y: doorY + 18, width: 26, height: 58, class: 'glass' });
+  add('rect', { x: doorX + 14, y: doorY + 92, width: 68, height: 35, class: 'detail' });
+  add('rect', { x: doorX + 14, y: doorY + 142, width: 28, height: 42, class: 'detail' });
+  add('rect', { x: doorX + 54, y: doorY + 142, width: 28, height: 42, class: 'detail' });
+
+  // Deliberately remove canopy for now; current geometric placeholder was misleading.
+
+  // Ground-floor windows
+  drawWindow(smallWindowX, smallWindowY, measured.smallWindowWidth, measured.smallWindowHeight, {
+    outer:'surroundsOuterAll', bottom:'windowBottomsAll'
+  });
+  drawWindow(largeWindowX, largeWindowY, measured.largeWindowWidth, measured.largeWindowHeight, {
+    outer:'surroundsOuterAll', bottom:'windowBottomsAll'
+  });
+
+  // Estimated first-floor windows, aligned near the lower floor divider.
+  const upperWindowY = dividerTopY - estimated.upperLeftWindowHeight;
+  drawWindow(ox + 130, upperWindowY, estimated.upperLeftWindowWidth, estimated.upperLeftWindowHeight, {
+    outer:'surroundsOuterAll', bottom:'windowBottomsAll'
+  });
+  drawWindow(ox + W - 130 - estimated.upperRightWindowWidth, upperWindowY, estimated.upperRightWindowWidth, estimated.upperRightWindowHeight, {
+    outer:'surroundsOuterAll', bottom:'windowBottomsAll'
+  });
+
+  // Estimated dormer windows: moved upward so their top aligns with the lower edge of the pink gable,
+  // and with more vertical distance from the first-floor windows.
+  const dormerWindowY = dormerFacadeTopY + 8;
+  drawWindow(dormerX + 45, dormerWindowY, estimated.dormerWindowWidth, estimated.dormerWindowHeight, {
+    outer:'surroundsOuterAll', bottom:'windowBottomsAll'
+  });
+  drawWindow(dormerX + 200, dormerWindowY, estimated.dormerWindowWidth, estimated.dormerWindowHeight, {
+    outer:'surroundsOuterAll', bottom:'windowBottomsAll'
+  });
+
+  // Fixed white details
+  add('rect', { x: doorX + 120, y: doorY + 55, width: 30, height: 24, fill: '#fff', stroke: '#777', 'stroke-width': 1.3, rx: 2 });
+  const number = add('text', { x: doorX + 135, y: doorY + 73, 'text-anchor': 'middle', 'font-size': 16, fill: '#222' });
+  number.textContent = '3';
+  add('circle', { cx: doorX + 135, cy: doorY + 25, r: 10, fill: '#444' });
+  add('rect', { x: doorX + 127, y: doorY + 36, width: 16, height: 16, fill: '#777' });
+  add('rect', { x: doorX + 123, y: doorY + 88, width: 24, height: 35, fill: '#f6f6f4', stroke: '#999', 'stroke-width': 1 });
+
+  // Gutters intentionally removed in this revision.
+})();
+captureOriginalColors();
+renderCategories();
+renderColorGrid();
+
+document.getElementById('restoreZoneBtn').addEventListener('click', () => {
+  if (!selectedZoneId) {
+    alert('Bitte zuerst einen Bereich auswählen.');
+    return;
+  }
+  restoreZone(selectedZoneId);
+  document.querySelector('.status-line').textContent =
+    `${zoneNames[selectedZoneId]} wurde zurückgesetzt.`;
+});
+
+document.getElementById('restoreAllBtn').addEventListener('click', () => {
+  restoreAllZones();
+  document.querySelector('.status-line').textContent =
+    'Alle Bereiche wurden zurückgesetzt.';
+});
+
+document.getElementById('clearSelectionBtn').addEventListener('click', clearSelection);
+document.getElementById('ralPaletteBtn').addEventListener('click', () => setPalette('ral'));
+document.getElementById('caparolPaletteBtn').addEventListener('click', () => setPalette('caparol'));
+document.getElementById('paletteSearch').addEventListener('input', renderColorGrid);
+
+document.querySelectorAll('.suggestion-mode').forEach(button => {
+  button.addEventListener('click', () => {
+    suggestionMode = button.dataset.mode;
+    document.querySelectorAll('.suggestion-mode').forEach(el =>
+      el.classList.toggle('active', el === button)
+    );
+    renderSuggestions();
+  });
+});
+
+// Clicking an empty part of the SVG or elsewhere outside the image/control panel
+// removes the yellow selection frame. Palette clicks intentionally keep selection.
+document.getElementById('house').addEventListener('click', event => {
+  if (!event.target.closest('.zone')) clearSelection();
+});
+
+document.addEventListener('click', event => {
+  if (!event.target.closest('.canvas') && !event.target.closest('.zone-panel')) {
+    clearSelection();
+  }
+});
+
+
+const presetDesigns = [
+  {
+    name:'Originalnah verfeinert',
+    desc:'Gedämpftes Grün mit zurückhaltendem Rosé und grauem Sockel.',
+    palette:'ral',
+    zones:{
+      facadeMain:{hex:'#8a9977',code:'RAL 6021',name:'Blassgrün'},
+      base:{hex:'#6b665f',code:'RAL 7039',name:'Quarzgrau'},
+      dividersAll:{hex:'#c1877f',code:'RAL 3012',name:'Beigerot'},
+      dormerGable:{hex:'#c1877f',code:'RAL 3012',name:'Beigerot'},
+      door:{hex:'#2f4538',code:'RAL 6025',name:'Farngrün'},
+      surroundsOuterAll:{hex:'#c1877f',code:'RAL 3012',name:'Beigerot'},
+      windowBottomsAll:{hex:'#8a9977',code:'RAL 6021',name:'Blassgrün'}
+    }
+  },
+  {
+    name:'Warmes Greige',
+    desc:'Ruhig, zeitlos und unempfindlich gegenüber wechselndem Licht.',
+    palette:'ral',
+    zones:{
+      facadeMain:{hex:'#cac4b9',code:'RAL 7044',name:'Seidengrau'},
+      base:{hex:'#756f61',code:'RAL 7006',name:'Beigegrau'},
+      dividersAll:{hex:'#e6e0d4',code:'RAL 1013',name:'Perlweiß'},
+      dormerGable:{hex:'#e6e0d4',code:'RAL 1013',name:'Perlweiß'},
+      door:{hex:'#383e42',code:'RAL 7016',name:'Anthrazitgrau'},
+      surroundsOuterAll:{hex:'#e6e0d4',code:'RAL 1013',name:'Perlweiß'},
+      windowBottomsAll:{hex:'#cac4b9',code:'RAL 7044',name:'Seidengrau'}
+    }
+  },
+  {
+    name:'Creme und Oliv',
+    desc:'Klassische warme Fassade mit natürlichem Grün als Akzent.',
+    palette:'ral',
+    zones:{
+      facadeMain:{hex:'#e6d2a5',code:'RAL 1015',name:'Hellelfenbein'},
+      base:{hex:'#6b665f',code:'RAL 7039',name:'Quarzgrau'},
+      dividersAll:{hex:'#4b5140',code:'RAL 6003',name:'Olivgrün'},
+      dormerGable:{hex:'#4b5140',code:'RAL 6003',name:'Olivgrün'},
+      door:{hex:'#2f4538',code:'RAL 6025',name:'Farngrün'},
+      surroundsOuterAll:{hex:'#4b5140',code:'RAL 6003',name:'Olivgrün'},
+      windowBottomsAll:{hex:'#e6d2a5',code:'RAL 1015',name:'Hellelfenbein'}
+    }
+  },
+  {
+    name:'Weiß, Sand und Grau',
+    desc:'Heller, moderner, aber weiterhin konservativer Gesamteindruck.',
+    palette:'ral',
+    zones:{
+      facadeMain:{hex:'#f1eee8',code:'RAL 9010',name:'Reinweiß'},
+      base:{hex:'#928e85',code:'RAL 7030',name:'Steingrau'},
+      dividersAll:{hex:'#c7a97f',code:'RAL 1001',name:'Beige'},
+      dormerGable:{hex:'#c7a97f',code:'RAL 1001',name:'Beige'},
+      door:{hex:'#383e42',code:'RAL 7016',name:'Anthrazitgrau'},
+      surroundsOuterAll:{hex:'#c7a97f',code:'RAL 1001',name:'Beige'},
+      windowBottomsAll:{hex:'#f1eee8',code:'RAL 9010',name:'Reinweiß'}
+    }
+  },
+  {
+    name:'Salbei und Altrosa',
+    desc:'Weiche natürliche Kombination, nah an der bestehenden Farbidee.',
+    palette:'ral',
+    zones:{
+      facadeMain:{hex:'#b7cdb5',code:'RAL 6019',name:'Weißgrün'},
+      base:{hex:'#756f61',code:'RAL 7006',name:'Beigegrau'},
+      dividersAll:{hex:'#c88c95',code:'RAL 3014',name:'Altrosa'},
+      dormerGable:{hex:'#c88c95',code:'RAL 3014',name:'Altrosa'},
+      door:{hex:'#4b5140',code:'RAL 6003',name:'Olivgrün'},
+      surroundsOuterAll:{hex:'#c88c95',code:'RAL 3014',name:'Altrosa'},
+      windowBottomsAll:{hex:'#b7cdb5',code:'RAL 6019',name:'Weißgrün'}
+    }
+  },
+  {
+    name:'Hellgrau und Terrakotta',
+    desc:'Gedämpfter Kontrast mit warmem, erdigem Akzent.',
+    palette:'ral',
+    zones:{
+      facadeMain:{hex:'#cac4b9',code:'RAL 7044',name:'Seidengrau'},
+      base:{hex:'#6b665f',code:'RAL 7039',name:'Quarzgrau'},
+      dividersAll:{hex:'#a65e37',code:'RAL 8023',name:'Orangebraun'},
+      dormerGable:{hex:'#a65e37',code:'RAL 8023',name:'Orangebraun'},
+      door:{hex:'#383e42',code:'RAL 7016',name:'Anthrazitgrau'},
+      surroundsOuterAll:{hex:'#a65e37',code:'RAL 8023',name:'Orangebraun'},
+      windowBottomsAll:{hex:'#cac4b9',code:'RAL 7044',name:'Seidengrau'}
+    }
+  }
+];
+
+function applyPresetDesign(preset){
+  const data={
+    version:3,build:'V3h',name:preset.name,palette:preset.palette,
+    suggestionMode:'tone',zones:preset.zones
+  };
+  loadPayload(data);
+}
+
+function renderPresetDesigns(){
+  const grid=document.getElementById('presetGrid');
+  grid.innerHTML=presetDesigns.map((p,i)=>{
+    const z=p.zones;
+    return `<button class="preset-card" data-preset="${i}">
+      <div class="preset-swatches">
+        <span style="background:${z.facadeMain.hex}"></span>
+        <span style="background:${z.dividersAll.hex}"></span>
+        <span style="background:${z.base.hex}"></span>
+        <span style="background:${z.door.hex}"></span>
+      </div>
+      <div class="preset-name">${p.name}</div>
+      <div class="preset-desc">${p.desc}</div>
+    </button>`;
+  }).join('');
+  grid.querySelectorAll('[data-preset]').forEach(b=>{
+    b.addEventListener('click',()=>applyPresetDesign(presetDesigns[Number(b.dataset.preset)]));
+  });
+}
+renderPresetDesigns();
+
+document.getElementById('saveDesignBtn').addEventListener('click',saveLocal);document.getElementById('showSavedBtn').addEventListener('click',renderSaved);document.getElementById('exportJsonBtn').addEventListener('click',()=>{const d=payload();download(JSON.stringify(d,null,2),safeName(d.name)+'.json','application/json');});document.getElementById('importJsonInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{loadPayload(JSON.parse(r.result))}catch{alert('Ungültige Entwurfsdatei.')}};r.readAsText(f);e.target.value='';});document.getElementById('exportPngBtn').addEventListener('click',()=>exportPng(false));document.getElementById('exportSheetBtn').addEventListener('click',()=>exportPng(true));
+
+</script>
+</body>
+</html>

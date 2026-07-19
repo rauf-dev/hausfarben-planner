@@ -1,0 +1,44 @@
+{
+  "version": 3,
+  "build": "V3h",
+  "name": "Warmes Greige",
+  "palette": "ral",
+  "suggestionMode": "tone",
+  "zones": {
+    "facadeMain": {
+      "hex": "#cac4b9",
+      "code": "RAL 7044",
+      "name": "Seidengrau"
+    },
+    "base": {
+      "hex": "#756f61",
+      "code": "RAL 7006",
+      "name": "Beigegrau"
+    },
+    "dividersAll": {
+      "hex": "#e6e0d4",
+      "code": "RAL 1013",
+      "name": "Perlweiß"
+    },
+    "dormerGable": {
+      "hex": "#e6e0d4",
+      "code": "RAL 1013",
+      "name": "Perlweiß"
+    },
+    "door": {
+      "hex": "#383e42",
+      "code": "RAL 7016",
+      "name": "Anthrazitgrau"
+    },
+    "surroundsOuterAll": {
+      "hex": "#e6e0d4",
+      "code": "RAL 1013",
+      "name": "Perlweiß"
+    },
+    "windowBottomsAll": {
+      "hex": "#cac4b9",
+      "code": "RAL 7044",
+      "name": "Seidengrau"
+    }
+  }
+}
