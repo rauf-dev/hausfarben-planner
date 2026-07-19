@@ -1,0 +1,1221 @@
+{
+  "version": 1,
+  "groups": [
+    {
+      "id": "classic",
+      "label": "Klassisch & zurückhaltend",
+      "items": [
+        {
+          "name": "Originalnah verfeinert",
+          "desc": "Gedämpftes Grün, Rosé und grauer Sockel.",
+          "collection": "ral-classic",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 6021",
+              "name": "Blassgrün",
+              "hex": "#8a9977"
+            },
+            "base": {
+              "code": "RAL 7039",
+              "name": "Quarzgrau",
+              "hex": "#6b665f"
+            },
+            "dividersAll": {
+              "code": "RAL 3012",
+              "name": "Beigerot",
+              "hex": "#c1877f"
+            },
+            "dormerGable": {
+              "code": "RAL 3012",
+              "name": "Beigerot",
+              "hex": "#c1877f"
+            },
+            "door": {
+              "code": "RAL 6025",
+              "name": "Farngrün",
+              "hex": "#2f4538"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 3012",
+              "name": "Beigerot",
+              "hex": "#c1877f"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 6021",
+              "name": "Blassgrün",
+              "hex": "#8a9977"
+            }
+          }
+        },
+        {
+          "name": "Warmes Greige",
+          "desc": "Ruhig, zeitlos und lichtstabil wirkend.",
+          "collection": "ral-classic",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 7044",
+              "name": "Seidengrau",
+              "hex": "#cac4b9"
+            },
+            "base": {
+              "code": "RAL 7006",
+              "name": "Beigegrau",
+              "hex": "#756f61"
+            },
+            "dividersAll": {
+              "code": "RAL 1013",
+              "name": "Perlweiß",
+              "hex": "#e6e0d4"
+            },
+            "dormerGable": {
+              "code": "RAL 1013",
+              "name": "Perlweiß",
+              "hex": "#e6e0d4"
+            },
+            "door": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 1013",
+              "name": "Perlweiß",
+              "hex": "#e6e0d4"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 7044",
+              "name": "Seidengrau",
+              "hex": "#cac4b9"
+            }
+          }
+        },
+        {
+          "name": "Creme und Oliv",
+          "desc": "Warme Fassade mit natürlichem Grün.",
+          "collection": "ral-classic",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 1015",
+              "name": "Hellelfenbein",
+              "hex": "#e6d2a5"
+            },
+            "base": {
+              "code": "RAL 7039",
+              "name": "Quarzgrau",
+              "hex": "#6b665f"
+            },
+            "dividersAll": {
+              "code": "RAL 6003",
+              "name": "Olivgrün",
+              "hex": "#4b5140"
+            },
+            "dormerGable": {
+              "code": "RAL 6003",
+              "name": "Olivgrün",
+              "hex": "#4b5140"
+            },
+            "door": {
+              "code": "RAL 6025",
+              "name": "Farngrün",
+              "hex": "#2f4538"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 6003",
+              "name": "Olivgrün",
+              "hex": "#4b5140"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 1015",
+              "name": "Hellelfenbein",
+              "hex": "#e6d2a5"
+            }
+          }
+        },
+        {
+          "name": "Weiß, Sand und Grau",
+          "desc": "Hell, modern und weiterhin zurückhaltend.",
+          "collection": "ral-classic",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 9010",
+              "name": "Reinweiß",
+              "hex": "#f1eee8"
+            },
+            "base": {
+              "code": "RAL 7030",
+              "name": "Steingrau",
+              "hex": "#928e85"
+            },
+            "dividersAll": {
+              "code": "RAL 1001",
+              "name": "Beige",
+              "hex": "#c7a97f"
+            },
+            "dormerGable": {
+              "code": "RAL 1001",
+              "name": "Beige",
+              "hex": "#c7a97f"
+            },
+            "door": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 1001",
+              "name": "Beige",
+              "hex": "#c7a97f"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 9010",
+              "name": "Reinweiß",
+              "hex": "#f1eee8"
+            }
+          }
+        },
+        {
+          "name": "Salbei und Altrosa",
+          "desc": "Weiche natürliche Kombination.",
+          "collection": "ral-classic",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 6019",
+              "name": "Weißgrün",
+              "hex": "#b7cdb5"
+            },
+            "base": {
+              "code": "RAL 7006",
+              "name": "Beigegrau",
+              "hex": "#756f61"
+            },
+            "dividersAll": {
+              "code": "RAL 3014",
+              "name": "Altrosa",
+              "hex": "#c88c95"
+            },
+            "dormerGable": {
+              "code": "RAL 3014",
+              "name": "Altrosa",
+              "hex": "#c88c95"
+            },
+            "door": {
+              "code": "RAL 6003",
+              "name": "Olivgrün",
+              "hex": "#4b5140"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 3014",
+              "name": "Altrosa",
+              "hex": "#c88c95"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 6019",
+              "name": "Weißgrün",
+              "hex": "#b7cdb5"
+            }
+          }
+        },
+        {
+          "name": "Hellgrau und Terrakotta",
+          "desc": "Gedämpfter warmer Akzent.",
+          "collection": "ral-classic",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 7044",
+              "name": "Seidengrau",
+              "hex": "#cac4b9"
+            },
+            "base": {
+              "code": "RAL 7039",
+              "name": "Quarzgrau",
+              "hex": "#6b665f"
+            },
+            "dividersAll": {
+              "code": "RAL 8023",
+              "name": "Orangebraun",
+              "hex": "#a65e37"
+            },
+            "dormerGable": {
+              "code": "RAL 8023",
+              "name": "Orangebraun",
+              "hex": "#a65e37"
+            },
+            "door": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 8023",
+              "name": "Orangebraun",
+              "hex": "#a65e37"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 7044",
+              "name": "Seidengrau",
+              "hex": "#cac4b9"
+            }
+          }
+        },
+        {
+          "name": "Siena und Patina",
+          "desc": "Erdige Caparol-Kombination.",
+          "collection": "caparol-plus",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Siena 20",
+              "name": "Helles Siena-Beige",
+              "hex": "#c5ad97"
+            },
+            "base": {
+              "code": "3D Granit 45",
+              "name": "Graubraun",
+              "hex": "#817d75"
+            },
+            "dividersAll": {
+              "code": "3D Patina 35",
+              "name": "Gedämpftes Grün",
+              "hex": "#8e9c7f"
+            },
+            "dormerGable": {
+              "code": "3D Patina 35",
+              "name": "Gedämpftes Grün",
+              "hex": "#8e9c7f"
+            },
+            "door": {
+              "code": "3D Patina 65",
+              "name": "Tiefes Patinagrün",
+              "hex": "#465243"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Patina 35",
+              "name": "Gedämpftes Grün",
+              "hex": "#8e9c7f"
+            },
+            "windowBottomsAll": {
+              "code": "3D Siena 20",
+              "name": "Helles Siena-Beige",
+              "hex": "#c5ad97"
+            }
+          }
+        },
+        {
+          "name": "Palazzo und Tundra",
+          "desc": "Warmes Off-White mit Taupe.",
+          "collection": "caparol-plus",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Palazzo 35",
+              "name": "Warmes Off-White",
+              "hex": "#e2d7c7"
+            },
+            "base": {
+              "code": "3D Tundra 40",
+              "name": "Mittleres Taupe",
+              "hex": "#968d80"
+            },
+            "dividersAll": {
+              "code": "3D Tundra 20",
+              "name": "Sanftes Taupe",
+              "hex": "#bbb4a8"
+            },
+            "dormerGable": {
+              "code": "3D Tundra 20",
+              "name": "Sanftes Taupe",
+              "hex": "#bbb4a8"
+            },
+            "door": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Tundra 20",
+              "name": "Sanftes Taupe",
+              "hex": "#bbb4a8"
+            },
+            "windowBottomsAll": {
+              "code": "3D Palazzo 35",
+              "name": "Warmes Off-White",
+              "hex": "#e2d7c7"
+            }
+          }
+        },
+        {
+          "name": "Lehmbeige klassisch",
+          "desc": "Siena 10 mit ruhigem Graubraun.",
+          "collection": "caparol-plus",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Siena 10",
+              "name": "Lehmbeige",
+              "hex": "#b9a28d"
+            },
+            "base": {
+              "code": "3D Granit 45",
+              "name": "Graubraun",
+              "hex": "#817d75"
+            },
+            "dividersAll": {
+              "code": "3D Palazzo 30",
+              "name": "Warmes Weiß",
+              "hex": "#e7ddcf"
+            },
+            "dormerGable": {
+              "code": "3D Palazzo 30",
+              "name": "Warmes Weiß",
+              "hex": "#e7ddcf"
+            },
+            "door": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Palazzo 30",
+              "name": "Warmes Weiß",
+              "hex": "#e7ddcf"
+            },
+            "windowBottomsAll": {
+              "code": "3D Siena 10",
+              "name": "Lehmbeige",
+              "hex": "#b9a28d"
+            }
+          }
+        },
+        {
+          "name": "Patina hell",
+          "desc": "Helles Salbei mit warmem Weiß.",
+          "collection": "caparol-exterior",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Patina 20",
+              "name": "Helles Salbeigrün",
+              "hex": "#b8c2a9"
+            },
+            "base": {
+              "code": "3D Tundra 40",
+              "name": "Mittleres Taupe",
+              "hex": "#968d80"
+            },
+            "dividersAll": {
+              "code": "3D Palazzo 30",
+              "name": "Warmes Weiß",
+              "hex": "#e7ddcf"
+            },
+            "dormerGable": {
+              "code": "3D Palazzo 30",
+              "name": "Warmes Weiß",
+              "hex": "#e7ddcf"
+            },
+            "door": {
+              "code": "3D Patina 65",
+              "name": "Tiefes Patinagrün",
+              "hex": "#465243"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Palazzo 30",
+              "name": "Warmes Weiß",
+              "hex": "#e7ddcf"
+            },
+            "windowBottomsAll": {
+              "code": "3D Patina 20",
+              "name": "Helles Salbeigrün",
+              "hex": "#b8c2a9"
+            }
+          }
+        },
+        {
+          "name": "Sand und Rosé",
+          "desc": "Sanfte warme, wohnliche Töne.",
+          "collection": "caparol-exterior",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Ginster 15",
+              "name": "Helles Sandbeige",
+              "hex": "#dfcfaa"
+            },
+            "base": {
+              "code": "3D Granit 45",
+              "name": "Graubraun",
+              "hex": "#817d75"
+            },
+            "dividersAll": {
+              "code": "3D Rose 20",
+              "name": "Helles Altrosa",
+              "hex": "#d8b1aa"
+            },
+            "dormerGable": {
+              "code": "3D Rose 20",
+              "name": "Helles Altrosa",
+              "hex": "#d8b1aa"
+            },
+            "door": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Rose 20",
+              "name": "Helles Altrosa",
+              "hex": "#d8b1aa"
+            },
+            "windowBottomsAll": {
+              "code": "3D Ginster 15",
+              "name": "Helles Sandbeige",
+              "hex": "#dfcfaa"
+            }
+          }
+        },
+        {
+          "name": "Kühles Grau",
+          "desc": "Sachlich und sehr ruhig.",
+          "collection": "caparol-plus",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Granit 15",
+              "name": "Sehr helles Grau",
+              "hex": "#d6d4ce"
+            },
+            "base": {
+              "code": "3D Granit 55",
+              "name": "Dunkles Graubraun",
+              "hex": "#68635d"
+            },
+            "dividersAll": {
+              "code": "3D Verona 25",
+              "name": "Kühles Off-White",
+              "hex": "#e2e2dc"
+            },
+            "dormerGable": {
+              "code": "3D Verona 25",
+              "name": "Kühles Off-White",
+              "hex": "#e2e2dc"
+            },
+            "door": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Verona 25",
+              "name": "Kühles Off-White",
+              "hex": "#e2e2dc"
+            },
+            "windowBottomsAll": {
+              "code": "3D Granit 15",
+              "name": "Sehr helles Grau",
+              "hex": "#d6d4ce"
+            }
+          }
+        },
+        {
+          "name": "Cremeweiß und Beigegrau",
+          "desc": "Sehr dezent und nachbarschaftsfreundlich.",
+          "collection": "ral-classic",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 9001",
+              "name": "Cremeweiß",
+              "hex": "#e9e0cf"
+            },
+            "base": {
+              "code": "RAL 7006",
+              "name": "Beigegrau",
+              "hex": "#756f61"
+            },
+            "dividersAll": {
+              "code": "RAL 1019",
+              "name": "Graubeige",
+              "hex": "#a99c8d"
+            },
+            "dormerGable": {
+              "code": "RAL 1019",
+              "name": "Graubeige",
+              "hex": "#a99c8d"
+            },
+            "door": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 1019",
+              "name": "Graubeige",
+              "hex": "#a99c8d"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 9001",
+              "name": "Cremeweiß",
+              "hex": "#e9e0cf"
+            }
+          }
+        },
+        {
+          "name": "Perlweiß und Reseda",
+          "desc": "Klassisch mit kleinem Grünanteil.",
+          "collection": "ral-classic",
+          "suggestionMode": "tone",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 1013",
+              "name": "Perlweiß",
+              "hex": "#e6e0d4"
+            },
+            "base": {
+              "code": "RAL 7039",
+              "name": "Quarzgrau",
+              "hex": "#6b665f"
+            },
+            "dividersAll": {
+              "code": "RAL 6011",
+              "name": "Resedagrün",
+              "hex": "#6c7c59"
+            },
+            "dormerGable": {
+              "code": "RAL 6011",
+              "name": "Resedagrün",
+              "hex": "#6c7c59"
+            },
+            "door": {
+              "code": "RAL 6003",
+              "name": "Olivgrün",
+              "hex": "#4b5140"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 6011",
+              "name": "Resedagrün",
+              "hex": "#6c7c59"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 1013",
+              "name": "Perlweiß",
+              "hex": "#e6e0d4"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "contrast",
+      "label": "Kontrastreich & ausdrucksstark",
+      "items": [
+        {
+          "name": "Weiß und Anthrazit",
+          "desc": "Klarer grafischer Kontrast.",
+          "collection": "ral-classic",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 9010",
+              "name": "Reinweiß",
+              "hex": "#f1eee8"
+            },
+            "base": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "dividersAll": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "dormerGable": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "door": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 9010",
+              "name": "Reinweiß",
+              "hex": "#f1eee8"
+            }
+          }
+        },
+        {
+          "name": "Creme und Rotbraun",
+          "desc": "Warme Fassade mit kräftigem Erdton.",
+          "collection": "ral-classic",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 1015",
+              "name": "Hellelfenbein",
+              "hex": "#e6d2a5"
+            },
+            "base": {
+              "code": "RAL 8012",
+              "name": "Rotbraun",
+              "hex": "#5e2f2a"
+            },
+            "dividersAll": {
+              "code": "RAL 8004",
+              "name": "Kupferbraun",
+              "hex": "#8f4e35"
+            },
+            "dormerGable": {
+              "code": "RAL 8004",
+              "name": "Kupferbraun",
+              "hex": "#8f4e35"
+            },
+            "door": {
+              "code": "RAL 8012",
+              "name": "Rotbraun",
+              "hex": "#5e2f2a"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 8004",
+              "name": "Kupferbraun",
+              "hex": "#8f4e35"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 1015",
+              "name": "Hellelfenbein",
+              "hex": "#e6d2a5"
+            }
+          }
+        },
+        {
+          "name": "Salbei und Kupfer",
+          "desc": "Natürlich, aber deutlich markanter.",
+          "collection": "ral-classic",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 6019",
+              "name": "Weißgrün",
+              "hex": "#b7cdb5"
+            },
+            "base": {
+              "code": "RAL 7039",
+              "name": "Quarzgrau",
+              "hex": "#6b665f"
+            },
+            "dividersAll": {
+              "code": "RAL 8004",
+              "name": "Kupferbraun",
+              "hex": "#8f4e35"
+            },
+            "dormerGable": {
+              "code": "RAL 8004",
+              "name": "Kupferbraun",
+              "hex": "#8f4e35"
+            },
+            "door": {
+              "code": "RAL 6025",
+              "name": "Farngrün",
+              "hex": "#2f4538"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 8004",
+              "name": "Kupferbraun",
+              "hex": "#8f4e35"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 6019",
+              "name": "Weißgrün",
+              "hex": "#b7cdb5"
+            }
+          }
+        },
+        {
+          "name": "Sand und Farngrün",
+          "desc": "Kräftiges Grün als klare Kontur.",
+          "collection": "ral-classic",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 1002",
+              "name": "Sandgelb",
+              "hex": "#cdb27b"
+            },
+            "base": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "dividersAll": {
+              "code": "RAL 6025",
+              "name": "Farngrün",
+              "hex": "#2f4538"
+            },
+            "dormerGable": {
+              "code": "RAL 6025",
+              "name": "Farngrün",
+              "hex": "#2f4538"
+            },
+            "door": {
+              "code": "RAL 6025",
+              "name": "Farngrün",
+              "hex": "#2f4538"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 6025",
+              "name": "Farngrün",
+              "hex": "#2f4538"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 1002",
+              "name": "Sandgelb",
+              "hex": "#cdb27b"
+            }
+          }
+        },
+        {
+          "name": "Graublau und Weiß",
+          "desc": "Kühler, moderner Kontrast.",
+          "collection": "ral-classic",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 5024",
+              "name": "Pastellblau",
+              "hex": "#6f8f9e"
+            },
+            "base": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "dividersAll": {
+              "code": "RAL 9010",
+              "name": "Reinweiß",
+              "hex": "#f1eee8"
+            },
+            "dormerGable": {
+              "code": "RAL 9010",
+              "name": "Reinweiß",
+              "hex": "#f1eee8"
+            },
+            "door": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 9010",
+              "name": "Reinweiß",
+              "hex": "#f1eee8"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 5024",
+              "name": "Pastellblau",
+              "hex": "#6f8f9e"
+            }
+          }
+        },
+        {
+          "name": "Hellgrau und Orangebraun",
+          "desc": "Ausdrucksstark, aber erdig.",
+          "collection": "ral-classic",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 7044",
+              "name": "Seidengrau",
+              "hex": "#cac4b9"
+            },
+            "base": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "dividersAll": {
+              "code": "RAL 8023",
+              "name": "Orangebraun",
+              "hex": "#a65e37"
+            },
+            "dormerGable": {
+              "code": "RAL 8023",
+              "name": "Orangebraun",
+              "hex": "#a65e37"
+            },
+            "door": {
+              "code": "RAL 8012",
+              "name": "Rotbraun",
+              "hex": "#5e2f2a"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 8023",
+              "name": "Orangebraun",
+              "hex": "#a65e37"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 7044",
+              "name": "Seidengrau",
+              "hex": "#cac4b9"
+            }
+          }
+        },
+        {
+          "name": "Siena 10 und Onyx",
+          "desc": "Lehmbeige mit dunkler Zeichnung.",
+          "collection": "caparol-plus",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Siena 10",
+              "name": "Lehmbeige",
+              "hex": "#b9a28d"
+            },
+            "base": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "dividersAll": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "dormerGable": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "door": {
+              "code": "3D Onyx 100",
+              "name": "Tiefes Graubraun",
+              "hex": "#292b2a"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "windowBottomsAll": {
+              "code": "3D Siena 10",
+              "name": "Lehmbeige",
+              "hex": "#b9a28d"
+            }
+          }
+        },
+        {
+          "name": "Palazzo und Patina dunkel",
+          "desc": "Helles Warmweiß mit tiefem Grün.",
+          "collection": "caparol-plus",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Palazzo 30",
+              "name": "Warmes Weiß",
+              "hex": "#e7ddcf"
+            },
+            "base": {
+              "code": "3D Granit 55",
+              "name": "Dunkles Graubraun",
+              "hex": "#68635d"
+            },
+            "dividersAll": {
+              "code": "3D Patina 55",
+              "name": "Dunkles Olivgrün",
+              "hex": "#58624f"
+            },
+            "dormerGable": {
+              "code": "3D Patina 55",
+              "name": "Dunkles Olivgrün",
+              "hex": "#58624f"
+            },
+            "door": {
+              "code": "3D Patina 65",
+              "name": "Tiefes Patinagrün",
+              "hex": "#465243"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Patina 55",
+              "name": "Dunkles Olivgrün",
+              "hex": "#58624f"
+            },
+            "windowBottomsAll": {
+              "code": "3D Palazzo 30",
+              "name": "Warmes Weiß",
+              "hex": "#e7ddcf"
+            }
+          }
+        },
+        {
+          "name": "Pacific und Siena",
+          "desc": "Kühles Blau trifft warmes Terrakotta.",
+          "collection": "caparol-plus",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Pacific 5",
+              "name": "Helles Graublau",
+              "hex": "#c8d3d5"
+            },
+            "base": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "dividersAll": {
+              "code": "3D Siena 40",
+              "name": "Ton / Terrakotta",
+              "hex": "#ad7659"
+            },
+            "dormerGable": {
+              "code": "3D Siena 40",
+              "name": "Ton / Terrakotta",
+              "hex": "#ad7659"
+            },
+            "door": {
+              "code": "3D Onyx 100",
+              "name": "Tiefes Graubraun",
+              "hex": "#292b2a"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Siena 40",
+              "name": "Ton / Terrakotta",
+              "hex": "#ad7659"
+            },
+            "windowBottomsAll": {
+              "code": "3D Pacific 5",
+              "name": "Helles Graublau",
+              "hex": "#c8d3d5"
+            }
+          }
+        },
+        {
+          "name": "Granit und Rose",
+          "desc": "Sachliche Fassade mit Rosé-Akzent.",
+          "collection": "caparol-plus",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Granit 15",
+              "name": "Sehr helles Grau",
+              "hex": "#d6d4ce"
+            },
+            "base": {
+              "code": "3D Granit 55",
+              "name": "Dunkles Graubraun",
+              "hex": "#68635d"
+            },
+            "dividersAll": {
+              "code": "3D Rose 50",
+              "name": "Dunkles Rosé",
+              "hex": "#9b6b68"
+            },
+            "dormerGable": {
+              "code": "3D Rose 50",
+              "name": "Dunkles Rosé",
+              "hex": "#9b6b68"
+            },
+            "door": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Rose 50",
+              "name": "Dunkles Rosé",
+              "hex": "#9b6b68"
+            },
+            "windowBottomsAll": {
+              "code": "3D Granit 15",
+              "name": "Sehr helles Grau",
+              "hex": "#d6d4ce"
+            }
+          }
+        },
+        {
+          "name": "Ginster und Oliv",
+          "desc": "Sonniges Beige mit dunklem Naturton.",
+          "collection": "caparol-plus",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Ginster 25",
+              "name": "Goldiges Beige",
+              "hex": "#d7c18d"
+            },
+            "base": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "dividersAll": {
+              "code": "3D Oliv 40",
+              "name": "Mittleres Oliv",
+              "hex": "#7c8063"
+            },
+            "dormerGable": {
+              "code": "3D Oliv 40",
+              "name": "Mittleres Oliv",
+              "hex": "#7c8063"
+            },
+            "door": {
+              "code": "3D Oliv 65",
+              "name": "Dunkles Oliv",
+              "hex": "#555a43"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Oliv 40",
+              "name": "Mittleres Oliv",
+              "hex": "#7c8063"
+            },
+            "windowBottomsAll": {
+              "code": "3D Ginster 25",
+              "name": "Goldiges Beige",
+              "hex": "#d7c18d"
+            }
+          }
+        },
+        {
+          "name": "Arctis und Pacific",
+          "desc": "Sehr kühl und modern.",
+          "collection": "caparol-plus",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "3D Arctis 30",
+              "name": "Kühles Eisweiß",
+              "hex": "#e1e6e5"
+            },
+            "base": {
+              "code": "3D Onyx 90",
+              "name": "Dunkles Anthrazit",
+              "hex": "#34383a"
+            },
+            "dividersAll": {
+              "code": "3D Pacific 40",
+              "name": "Mittleres Graublau",
+              "hex": "#708993"
+            },
+            "dormerGable": {
+              "code": "3D Pacific 40",
+              "name": "Mittleres Graublau",
+              "hex": "#708993"
+            },
+            "door": {
+              "code": "3D Onyx 100",
+              "name": "Tiefes Graubraun",
+              "hex": "#292b2a"
+            },
+            "surroundsOuterAll": {
+              "code": "3D Pacific 40",
+              "name": "Mittleres Graublau",
+              "hex": "#708993"
+            },
+            "windowBottomsAll": {
+              "code": "3D Arctis 30",
+              "name": "Kühles Eisweiß",
+              "hex": "#e1e6e5"
+            }
+          }
+        },
+        {
+          "name": "Weißgrün und Rotbraun",
+          "desc": "Stärkerer Komplementärcharakter.",
+          "collection": "ral-classic",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 6019",
+              "name": "Weißgrün",
+              "hex": "#b7cdb5"
+            },
+            "base": {
+              "code": "RAL 8012",
+              "name": "Rotbraun",
+              "hex": "#5e2f2a"
+            },
+            "dividersAll": {
+              "code": "RAL 8012",
+              "name": "Rotbraun",
+              "hex": "#5e2f2a"
+            },
+            "dormerGable": {
+              "code": "RAL 8012",
+              "name": "Rotbraun",
+              "hex": "#5e2f2a"
+            },
+            "door": {
+              "code": "RAL 6025",
+              "name": "Farngrün",
+              "hex": "#2f4538"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 8012",
+              "name": "Rotbraun",
+              "hex": "#5e2f2a"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 6019",
+              "name": "Weißgrün",
+              "hex": "#b7cdb5"
+            }
+          }
+        },
+        {
+          "name": "Graubeige und Taubenblau",
+          "desc": "Ungewöhnlicher, kontrollierter Kontrast.",
+          "collection": "ral-classic",
+          "suggestionMode": "classic",
+          "zones": {
+            "facadeMain": {
+              "code": "RAL 1019",
+              "name": "Graubeige",
+              "hex": "#a99c8d"
+            },
+            "base": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "dividersAll": {
+              "code": "RAL 5014",
+              "name": "Taubenblau",
+              "hex": "#637d8a"
+            },
+            "dormerGable": {
+              "code": "RAL 5014",
+              "name": "Taubenblau",
+              "hex": "#637d8a"
+            },
+            "door": {
+              "code": "RAL 7016",
+              "name": "Anthrazitgrau",
+              "hex": "#383e42"
+            },
+            "surroundsOuterAll": {
+              "code": "RAL 5014",
+              "name": "Taubenblau",
+              "hex": "#637d8a"
+            },
+            "windowBottomsAll": {
+              "code": "RAL 1019",
+              "name": "Graubeige",
+              "hex": "#a99c8d"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

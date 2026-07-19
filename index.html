@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hausfarben-Planer V3h</title>
+  <title>Hausfarben-Planer V3i</title>
   <style>
     :root {
       --bg: #eef3f6;
@@ -570,6 +570,12 @@
 .preset-swatches span{flex:1}
 .preset-name{font-size:.76rem;font-weight:800}
 .preset-desc{font-size:.68rem;color:#68737e;margin-top:3px;line-height:1.3}
+
+.pager{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0 2px;font-size:.72rem;color:#66717b}
+.pager button{border:1px solid #c7cfd6;background:#fff;border-radius:7px;padding:6px 9px;cursor:pointer}
+.pager button:disabled{opacity:.4;cursor:default}
+.preset-tabs{margin-bottom:9px}
+.palette-count{font-size:.7rem;color:#6c7781}
 </style>
 </head>
 <body>
@@ -584,7 +590,7 @@
     <aside class="zone-panel">
       <div class="panel-title-row">
         <strong>Hausfarben-Planer</strong>
-        <span>V3h</span>
+        <span>V3i</span>
       </div>
 
       <div class="selection-bar">
@@ -598,11 +604,13 @@
           <button id="caparolPaletteBtn">Caparol</button>
         </div>
 
+        <select id="collectionSelect" class="search-input" aria-label="Farbkollektion"></select>
         <input id="paletteSearch" class="search-input" placeholder="Farbname oder Code suchen">
         <div id="categoryRow" class="category-row"></div>
       </div>
 
       <div id="colorGrid" class="color-grid"></div>
+      <div id="colorPager" class="pager"></div>
 
       <div class="reset-row">
         <button id="restoreZoneBtn" class="zone-button">Aktiven Bereich zurücksetzen</button>
@@ -632,8 +640,10 @@
 
       </section>
       <section class="preset-panel">
-<h2>Konservative Beispielentwürfe</h2>
+<h2>Beispielentwürfe</h2>
+<div id="presetTabs" class="palette-toggle preset-tabs"></div>
 <div id="presetGrid" class="preset-grid"></div>
+<div id="presetPager" class="pager"></div>
 </section>
 <section class="design-panel"><h2>Entwürfe</h2><input id="designName" class="design-name" value="Neue Variante"><div class="design-actions"><button id="saveDesignBtn">Im Browser speichern</button><button id="exportJsonBtn">JSON exportieren</button><label>JSON importieren<input id="importJsonInput" type="file" accept=".json,application/json"></label><button id="showSavedBtn">Gespeicherte anzeigen</button></div><div id="savedDesigns" class="saved-designs"></div></section>
       <section class="export-panel"><h2>Bildexport</h2><div class="export-actions"><button id="exportPngBtn">Haus als PNG</button><button id="exportSheetBtn">Gestaltungsblatt</button></div><div class="export-note">Gestaltungsblatt mit Variantenname, Palette und Farben je Zone.</div></section>
@@ -692,52 +702,40 @@ const zoneNames = {
 
 const originalColors = {};
 
-const palettes = {
-  ral: [
-    { code:'RAL 9010', name:'Reinweiß', hex:'#f1eee8', category:'Weiß' },
-    { code:'RAL 9001', name:'Cremeweiß', hex:'#e9e0cf', category:'Weiß' },
-    { code:'RAL 1013', name:'Perlweiß', hex:'#e6e0d4', category:'Weiß' },
-    { code:'RAL 1015', name:'Hellelfenbein', hex:'#e6d2a5', category:'Beige' },
-    { code:'RAL 1001', name:'Beige', hex:'#c7a97f', category:'Beige' },
-    { code:'RAL 1019', name:'Graubeige', hex:'#a99c8d', category:'Beige' },
-    { code:'RAL 7032', name:'Kieselgrau', hex:'#b8b5a2', category:'Grau' },
-    { code:'RAL 7044', name:'Seidengrau', hex:'#cac4b9', category:'Grau' },
-    { code:'RAL 7030', name:'Steingrau', hex:'#928e85', category:'Grau' },
-    { code:'RAL 7039', name:'Quarzgrau', hex:'#6b665f', category:'Grau' },
-    { code:'RAL 7006', name:'Beigegrau', hex:'#756f61', category:'Grau' },
-    { code:'RAL 7016', name:'Anthrazitgrau', hex:'#383e42', category:'Dunkel' },
-    { code:'RAL 6021', name:'Blassgrün', hex:'#8a9977', category:'Grün' },
-    { code:'RAL 6019', name:'Weißgrün', hex:'#b7cdb5', category:'Grün' },
-    { code:'RAL 6025', name:'Farngrün', hex:'#2f4538', category:'Grün' },
-    { code:'RAL 6003', name:'Olivgrün', hex:'#4b5140', category:'Grün' },
-    { code:'RAL 6011', name:'Resedagrün', hex:'#6c7c59', category:'Grün' },
-    { code:'RAL 3014', name:'Altrosa', hex:'#c88c95', category:'Rosé/Terrakotta' },
-    { code:'RAL 3012', name:'Beigerot', hex:'#c1877f', category:'Rosé/Terrakotta' },
-    { code:'RAL 8004', name:'Kupferbraun', hex:'#8f4e35', category:'Rosé/Terrakotta' },
-    { code:'RAL 8023', name:'Orangebraun', hex:'#a65e37', category:'Rosé/Terrakotta' },
-    { code:'RAL 8012', name:'Rotbraun', hex:'#5e2f2a', category:'Rosé/Terrakotta' }
-  ],
-  caparol: [
-    { code:'3D Palazzo 10', name:'Helles warmes Weiß', hex:'#eee9df', category:'Weiß' },
-    { code:'3D Palazzo 35', name:'Warmes Off-White', hex:'#e2d7c7', category:'Weiß' },
-    { code:'3D Ginster 15', name:'Helles Sandbeige', hex:'#dfcfaa', category:'Beige' },
-    { code:'3D Ginster 35', name:'Gedämpftes Beige', hex:'#c7b184', category:'Beige' },
-    { code:'3D Granit 15', name:'Sehr helles Grau', hex:'#d6d4ce', category:'Grau' },
-    { code:'3D Granit 30', name:'Mittleres Steingrau', hex:'#aaa69d', category:'Grau' },
-    { code:'3D Granit 55', name:'Dunkles Graubraun', hex:'#68635d', category:'Grau' },
-    { code:'3D Patina 20', name:'Helles Salbeigrün', hex:'#b8c2a9', category:'Grün' },
-    { code:'3D Patina 35', name:'Gedämpftes Grün', hex:'#8e9c7f', category:'Grün' },
-    { code:'3D Patina 55', name:'Dunkles Olivgrün', hex:'#58624f', category:'Grün' },
-    { code:'3D Rose 20', name:'Helles Altrosa', hex:'#d8b1aa', category:'Rosé/Terrakotta' },
-    { code:'3D Rose 35', name:'Gedämpftes Rosé', hex:'#bd8d87', category:'Rosé/Terrakotta' },
-    { code:'3D Siena 40', name:'Ton / Terrakotta', hex:'#ad7659', category:'Rosé/Terrakotta' },
-    { code:'3D Siena 55', name:'Dunkles Terrakotta', hex:'#7f4f3d', category:'Rosé/Terrakotta' },
-    { code:'3D Onyx 90', name:'Dunkles Anthrazit', hex:'#34383a', category:'Dunkel' }
-  ]
-};
-
+let paletteData = { collections: [] };
+let presetData = { groups: [] };
 let activePalette = 'ral';
+let activeCollectionId = 'ral-classic';
 let activeCategory = 'Alle';
+let colorPage = 1;
+const colorsPerPage = 12;
+let presetGroupId = 'classic';
+let presetPage = 1;
+const presetsPerPage = 6;
+
+function getCollection(id = activeCollectionId) {
+  return paletteData.collections.find(item => item.id === id) || paletteData.collections[0] || { colors: [], brand: 'ral', label: '' };
+}
+
+function getActiveColors() {
+  return getCollection().colors || [];
+}
+
+function collectionBrand(id = activeCollectionId) {
+  return getCollection(id).brand || 'ral';
+}
+
+async function loadExternalData() {
+  const [paletteResponse, presetResponse] = await Promise.all([
+    fetch('data/palettes.json'),
+    fetch('data/presets.json')
+  ]);
+  if (!paletteResponse.ok || !presetResponse.ok) throw new Error('Farbdaten konnten nicht geladen werden.');
+  paletteData = await paletteResponse.json();
+  presetData = await presetResponse.json();
+}
+
+
 
 function captureOriginalColors() {
   document.querySelectorAll('.zone').forEach(el => {
@@ -788,37 +786,68 @@ function restoreAllZones() {
   renderSuggestions();
 }
 
-function renderCategories() {
-  const categories = ['Alle', ...new Set(palettes[activePalette].map(c => c.category))];
-  const row = document.getElementById('categoryRow');
+function renderCollectionSelect() {
+  const select = document.getElementById('collectionSelect');
+  const collections = paletteData.collections.filter(item => item.brand === activePalette);
+  if (!collections.some(item => item.id === activeCollectionId)) {
+    activeCollectionId = collections[0]?.id || paletteData.collections[0]?.id || '';
+  }
+  select.innerHTML = collections.map(item =>
+    `<option value="${item.id}" ${item.id === activeCollectionId ? 'selected' : ''}>${item.label}</option>`
+  ).join('');
+}
 
+function renderCategories() {
+  const categories = ['Alle', ...new Set(getActiveColors().map(c => c.category))];
+  const row = document.getElementById('categoryRow');
   row.innerHTML = categories.map(category => `
     <button class="category-button ${category === activeCategory ? 'active' : ''}"
             data-category="${category}">${category}</button>
   `).join('');
-
   row.querySelectorAll('.category-button').forEach(button => {
     button.addEventListener('click', () => {
       activeCategory = button.dataset.category;
+      colorPage = 1;
       renderCategories();
       renderColorGrid();
     });
   });
 }
 
-function renderColorGrid() {
+function filteredColors() {
   const search = document.getElementById('paletteSearch').value.trim().toLowerCase();
-  const colors = palettes[activePalette].filter(color => {
+  return getActiveColors().filter(color => {
     const matchesCategory = activeCategory === 'Alle' || color.category === activeCategory;
     const matchesSearch = `${color.code} ${color.name}`.toLowerCase().includes(search);
     return matchesCategory && matchesSearch;
   });
+}
+
+function renderPager(elementId, page, totalPages, onChange) {
+  const pager = document.getElementById(elementId);
+  if (totalPages <= 1) {
+    pager.innerHTML = `<span>${totalPages ? '1 Seite' : 'Keine Treffer'}</span>`;
+    return;
+  }
+  pager.innerHTML = `
+    <button data-direction="-1" ${page <= 1 ? 'disabled' : ''}>← Zurück</button>
+    <span>Seite ${page} von ${totalPages}</span>
+    <button data-direction="1" ${page >= totalPages ? 'disabled' : ''}>Weiter →</button>
+  `;
+  pager.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => onChange(Number(button.dataset.direction)));
+  });
+}
+
+function renderColorGrid() {
+  const colors = filteredColors();
+  const totalPages = Math.max(1, Math.ceil(colors.length / colorsPerPage));
+  colorPage = Math.min(Math.max(1, colorPage), totalPages);
+  const pageColors = colors.slice((colorPage - 1) * colorsPerPage, colorPage * colorsPerPage);
 
   const grid = document.getElementById('colorGrid');
-  grid.innerHTML = colors.map(color => `
-    <button class="color-choice"
-            data-code="${color.code}"
-            title="${color.code} – ${color.name}">
+  grid.innerHTML = pageColors.map(color => `
+    <button class="color-choice" data-code="${color.code}" title="${color.code} – ${color.name}">
       <div class="color-swatch" style="background:${color.hex}"></div>
       <div class="color-label">
         <span class="color-code">${color.code}</span>
@@ -829,43 +858,53 @@ function renderColorGrid() {
 
   grid.querySelectorAll('.color-choice').forEach(button => {
     button.addEventListener('click', () => {
-      const color = colors.find(item => item.code === button.dataset.code);
+      const color = pageColors.find(item => item.code === button.dataset.code);
       applyColorToZone(selectedZoneId, color);
     });
   });
 
-  document.getElementById('paletteNote').textContent =
-    activePalette === 'ral'
-      ? 'Kuratiertes RAL-Classic-Sortiment für konservative Fassadenentwürfe. Die zusammengefassten Zonen erleichtern ein einheitliches Farbkonzept.'
-      : 'Kuratiertes Caparol-3D-System-PLUS-Sortiment. Bildschirmdarstellung ist unverbindlich; Endauswahl mit Original-Farbfächer oder Musterfläche prüfen.';
+  renderPager('colorPager', colorPage, totalPages, direction => {
+    colorPage += direction;
+    renderColorGrid();
+  });
+
+  const collection = getCollection();
+  document.getElementById('paletteNote').innerHTML =
+    `<strong>${collection.label}</strong><br>${collection.description}<br>${paletteData.displayDisclaimer}`;
 }
 
-function setPalette(palette) {
-  activePalette = palette;
+function setCollection(id) {
+  activeCollectionId = id;
+  activePalette = collectionBrand(id);
   activeCategory = 'Alle';
+  colorPage = 1;
   selectedMainFacadeColor = null;
-
-  document.getElementById('ralPaletteBtn').classList.toggle('active', palette === 'ral');
-  document.getElementById('caparolPaletteBtn').classList.toggle('active', palette === 'caparol');
-
+  document.getElementById('ralPaletteBtn').classList.toggle('active', activePalette === 'ral');
+  document.getElementById('caparolPaletteBtn').classList.toggle('active', activePalette === 'caparol');
+  renderCollectionSelect();
   renderCategories();
   renderColorGrid();
   renderSuggestions();
 }
 
+function setPalette(palette) {
+  activePalette = palette;
+  const first = paletteData.collections.find(item => item.brand === palette);
+  setCollection(first?.id || activeCollectionId);
+}
 
 
 function snapshotZones(){const out={};Object.keys(zoneNames).forEach(id=>{const e=document.querySelector(`.zone[data-zone-id="${id}"]`);if(e)out[id]={hex:e.style.fill||getComputedStyle(e).fill,code:e.dataset.colorCode||'Original',name:e.dataset.colorName||'Original'};});return out;}
 function applySnapshot(s){Object.entries(s||{}).forEach(([id,v])=>document.querySelectorAll(`.zone[data-zone-id="${id}"]`).forEach(e=>{e.style.fill=v.hex;if(v.code&&v.code!=='Original')e.dataset.colorCode=v.code;else delete e.dataset.colorCode;if(v.name&&v.name!=='Original')e.dataset.colorName=v.name;else delete e.dataset.colorName;}));const f=s?.facadeMain;selectedMainFacadeColor=f&&f.code!=='Original'?{code:f.code,name:f.name,hex:f.hex,category:''}:null;renderSuggestions();}
-function payload(){return{version:3,build:'V3h',name:document.getElementById('designName').value.trim()||'Unbenannte Variante',palette:activePalette,suggestionMode,zones:snapshotZones(),savedAt:new Date().toISOString()};}
-function loadPayload(d){if(!d?.zones)throw new Error();document.getElementById('designName').value=d.name||'Import';suggestionMode=d.suggestionMode||'tone';document.querySelectorAll('.suggestion-mode').forEach(e=>e.classList.toggle('active',e.dataset.mode===suggestionMode));setPalette(d.palette==='caparol'?'caparol':'ral');applySnapshot(d.zones);clearSelection();document.querySelector('.status-line').textContent=`Entwurf „${d.name||'Import'}“ geladen.`;}
+function payload(){return{version:3,build:'V3i',name:document.getElementById('designName').value.trim()||'Unbenannte Variante',palette:activePalette,collection:activeCollectionId,suggestionMode,zones:snapshotZones(),savedAt:new Date().toISOString()};}
+function loadPayload(d){if(!d?.zones)throw new Error();document.getElementById('designName').value=d.name||'Import';suggestionMode=d.suggestionMode||'tone';document.querySelectorAll('.suggestion-mode').forEach(e=>e.classList.toggle('active',e.dataset.mode===suggestionMode));setCollection(d.collection || (d.palette==='caparol'?'caparol-plus':'ral-classic'));applySnapshot(d.zones);clearSelection();document.querySelector('.status-line').textContent=`Entwurf „${d.name||'Import'}“ geladen.`;}
 function safeName(n){return(n||'hausfarben').trim().replace(/[^a-zA-Z0-9äöüÄÖÜß_-]+/g,'_')||'hausfarben';}
 function download(content,name,type){const b=content instanceof Blob?content:new Blob([content],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
 function saveLocal(){const d=payload(),all=JSON.parse(localStorage.getItem('hausfarbenV3g')||'[]');all.push(d);localStorage.setItem('hausfarbenV3g',JSON.stringify(all));renderSaved();document.querySelector('.status-line').textContent=`Entwurf „${d.name}“ gespeichert.`;}
 function renderSaved(){const c=document.getElementById('savedDesigns'),all=JSON.parse(localStorage.getItem('hausfarbenV3g')||'[]');if(!all.length){c.innerHTML='<div class="suggestion-empty">Keine gespeicherten Entwürfe.</div>';return;}c.innerHTML=all.map((d,i)=>`<div class="saved-design-row"><button class="load" data-l="${i}">${d.name}</button><button data-j="${i}">JSON</button><button data-d="${i}">×</button></div>`).join('');c.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>loadPayload(all[+b.dataset.l]));c.querySelectorAll('[data-j]').forEach(b=>b.onclick=()=>download(JSON.stringify(all[+b.dataset.j],null,2),safeName(all[+b.dataset.j].name)+'.json','application/json'));c.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{all.splice(+b.dataset.d,1);localStorage.setItem('hausfarbenV3g',JSON.stringify(all));renderSaved();});}
 function svgString(){const c=document.getElementById('house').cloneNode(true);c.setAttribute('xmlns','http://www.w3.org/2000/svg');c.querySelectorAll('.selected,.hovered').forEach(e=>e.classList.remove('selected','hovered'));return new XMLSerializer().serializeToString(c);}
 function svgImage(){return new Promise((res,rej)=>{const u=URL.createObjectURL(new Blob([svgString()],{type:'image/svg+xml'})),i=new Image();i.onload=()=>{URL.revokeObjectURL(u);res(i)};i.onerror=rej;i.src=u;});}
-async function exportPng(sheet=false){const img=await svgImage(),d=payload(),c=document.createElement('canvas');c.width=sheet?1600:1290;c.height=sheet?1950:1500;const x=c.getContext('2d');x.fillStyle=sheet?'#fff':'#eef3f6';x.fillRect(0,0,c.width,c.height);if(!sheet)x.drawImage(img,0,0,c.width,c.height);else{x.fillStyle='#1f2933';x.font='bold 42px Arial';x.fillText(d.name,55,65);x.font='22px Arial';x.fillStyle='#5f6a74';x.fillText(`Palette: ${d.palette==='caparol'?'Caparol':'RAL'}`,55,100);x.fillStyle='#eef3f6';x.fillRect(55,130,900,1650);x.drawImage(img,55,130,900,1047);let y=180;x.fillStyle='#1f2933';x.font='bold 26px Arial';x.fillText('Verwendete Farben',1010,150);Object.entries(d.zones).forEach(([id,v])=>{x.fillStyle=v.hex;x.fillRect(1010,y-18,28,28);x.strokeStyle='#777';x.strokeRect(1010,y-18,28,28);x.fillStyle='#1f2933';x.font='bold 17px Arial';x.fillText(zoneNames[id]||id,1050,y);x.font='15px Arial';x.fillStyle='#5f6a74';x.fillText(`${v.code} – ${v.name}`,1050,y+22);y+=64;});x.fillStyle='#6b7280';x.font='14px Arial';x.fillText('Bildschirmfarben sind unverbindlich. Endauswahl mit Original-Farbfächer oder Musterfläche prüfen.',55,1900);}c.toBlob(b=>download(b,safeName(d.name)+(sheet?'_Gestaltungsblatt':'')+'.png','image/png'),'image/png');}
+async function exportPng(sheet=false){const img=await svgImage(),d=payload(),c=document.createElement('canvas');c.width=sheet?1600:1290;c.height=sheet?1950:1500;const x=c.getContext('2d');x.fillStyle=sheet?'#fff':'#eef3f6';x.fillRect(0,0,c.width,c.height);if(!sheet)x.drawImage(img,0,0,c.width,c.height);else{x.fillStyle='#1f2933';x.font='bold 42px Arial';x.fillText(d.name,55,65);x.font='22px Arial';x.fillStyle='#5f6a74';x.fillText(`Kollektion: ${getCollection(d.collection).label || (d.palette==='caparol'?'Caparol':'RAL')}`,55,100);x.fillStyle='#eef3f6';x.fillRect(55,130,900,1650);x.drawImage(img,55,130,900,1047);let y=180;x.fillStyle='#1f2933';x.font='bold 26px Arial';x.fillText('Verwendete Farben',1010,150);Object.entries(d.zones).forEach(([id,v])=>{x.fillStyle=v.hex;x.fillRect(1010,y-18,28,28);x.strokeStyle='#777';x.strokeRect(1010,y-18,28,28);x.fillStyle='#1f2933';x.font='bold 17px Arial';x.fillText(zoneNames[id]||id,1050,y);x.font='15px Arial';x.fillStyle='#5f6a74';x.fillText(`${v.code} – ${v.name}`,1050,y+22);y+=64;});x.fillStyle='#6b7280';x.font='14px Arial';x.fillText('Bildschirmfarben sind unverbindlich. Endauswahl mit Original-Farbfächer oder Musterfläche prüfen.',55,1900);}c.toBlob(b=>download(b,safeName(d.name)+(sheet?'_Gestaltungsblatt':'')+'.png','image/png'),'image/png');}
 
 let suggestionMode = 'tone';
 let selectedMainFacadeColor = null;
@@ -944,7 +983,7 @@ function scoreColor(main, candidate, role, mode) {
 
 function getSuggestions(role, count = 3) {
   if (!selectedMainFacadeColor) return [];
-  return palettes[activePalette]
+  return getActiveColors()
     .filter(c => c.code !== selectedMainFacadeColor.code)
     .map(c => ({ ...c, score: scoreColor(selectedMainFacadeColor, c, role, suggestionMode) }))
     .sort((a, b) => b.score - a.score)
@@ -1014,7 +1053,7 @@ function renderSuggestions() {
   container.querySelectorAll('.suggestion-color').forEach(button => {
     button.addEventListener('click', () => {
       const role = button.dataset.role;
-      const color = palettes[activePalette].find(c => c.code === button.dataset.code);
+      const color = getActiveColors().find(c => c.code === button.dataset.code);
       applySuggestedRole(role, color);
     });
   });
@@ -1200,8 +1239,6 @@ function drawWindow(x, y, width, height, ids, trim = 8) {
   // Gutters intentionally removed in this revision.
 })();
 captureOriginalColors();
-renderCategories();
-renderColorGrid();
 
 document.getElementById('restoreZoneBtn').addEventListener('click', () => {
   if (!selectedZoneId) {
@@ -1222,7 +1259,8 @@ document.getElementById('restoreAllBtn').addEventListener('click', () => {
 document.getElementById('clearSelectionBtn').addEventListener('click', clearSelection);
 document.getElementById('ralPaletteBtn').addEventListener('click', () => setPalette('ral'));
 document.getElementById('caparolPaletteBtn').addEventListener('click', () => setPalette('caparol'));
-document.getElementById('paletteSearch').addEventListener('input', renderColorGrid);
+document.getElementById('paletteSearch').addEventListener('input', () => { colorPage = 1; renderColorGrid(); });
+document.getElementById('collectionSelect').addEventListener('change', event => setCollection(event.target.value));
 
 document.querySelectorAll('.suggestion-mode').forEach(button => {
   button.addEventListener('click', () => {
@@ -1247,121 +1285,83 @@ document.addEventListener('click', event => {
 });
 
 
-const presetDesigns = [
-  {
-    name:'Originalnah verfeinert',
-    desc:'Gedämpftes Grün mit zurückhaltendem Rosé und grauem Sockel.',
-    palette:'ral',
-    zones:{
-      facadeMain:{hex:'#8a9977',code:'RAL 6021',name:'Blassgrün'},
-      base:{hex:'#6b665f',code:'RAL 7039',name:'Quarzgrau'},
-      dividersAll:{hex:'#c1877f',code:'RAL 3012',name:'Beigerot'},
-      dormerGable:{hex:'#c1877f',code:'RAL 3012',name:'Beigerot'},
-      door:{hex:'#2f4538',code:'RAL 6025',name:'Farngrün'},
-      surroundsOuterAll:{hex:'#c1877f',code:'RAL 3012',name:'Beigerot'},
-      windowBottomsAll:{hex:'#8a9977',code:'RAL 6021',name:'Blassgrün'}
-    }
-  },
-  {
-    name:'Warmes Greige',
-    desc:'Ruhig, zeitlos und unempfindlich gegenüber wechselndem Licht.',
-    palette:'ral',
-    zones:{
-      facadeMain:{hex:'#cac4b9',code:'RAL 7044',name:'Seidengrau'},
-      base:{hex:'#756f61',code:'RAL 7006',name:'Beigegrau'},
-      dividersAll:{hex:'#e6e0d4',code:'RAL 1013',name:'Perlweiß'},
-      dormerGable:{hex:'#e6e0d4',code:'RAL 1013',name:'Perlweiß'},
-      door:{hex:'#383e42',code:'RAL 7016',name:'Anthrazitgrau'},
-      surroundsOuterAll:{hex:'#e6e0d4',code:'RAL 1013',name:'Perlweiß'},
-      windowBottomsAll:{hex:'#cac4b9',code:'RAL 7044',name:'Seidengrau'}
-    }
-  },
-  {
-    name:'Creme und Oliv',
-    desc:'Klassische warme Fassade mit natürlichem Grün als Akzent.',
-    palette:'ral',
-    zones:{
-      facadeMain:{hex:'#e6d2a5',code:'RAL 1015',name:'Hellelfenbein'},
-      base:{hex:'#6b665f',code:'RAL 7039',name:'Quarzgrau'},
-      dividersAll:{hex:'#4b5140',code:'RAL 6003',name:'Olivgrün'},
-      dormerGable:{hex:'#4b5140',code:'RAL 6003',name:'Olivgrün'},
-      door:{hex:'#2f4538',code:'RAL 6025',name:'Farngrün'},
-      surroundsOuterAll:{hex:'#4b5140',code:'RAL 6003',name:'Olivgrün'},
-      windowBottomsAll:{hex:'#e6d2a5',code:'RAL 1015',name:'Hellelfenbein'}
-    }
-  },
-  {
-    name:'Weiß, Sand und Grau',
-    desc:'Heller, moderner, aber weiterhin konservativer Gesamteindruck.',
-    palette:'ral',
-    zones:{
-      facadeMain:{hex:'#f1eee8',code:'RAL 9010',name:'Reinweiß'},
-      base:{hex:'#928e85',code:'RAL 7030',name:'Steingrau'},
-      dividersAll:{hex:'#c7a97f',code:'RAL 1001',name:'Beige'},
-      dormerGable:{hex:'#c7a97f',code:'RAL 1001',name:'Beige'},
-      door:{hex:'#383e42',code:'RAL 7016',name:'Anthrazitgrau'},
-      surroundsOuterAll:{hex:'#c7a97f',code:'RAL 1001',name:'Beige'},
-      windowBottomsAll:{hex:'#f1eee8',code:'RAL 9010',name:'Reinweiß'}
-    }
-  },
-  {
-    name:'Salbei und Altrosa',
-    desc:'Weiche natürliche Kombination, nah an der bestehenden Farbidee.',
-    palette:'ral',
-    zones:{
-      facadeMain:{hex:'#b7cdb5',code:'RAL 6019',name:'Weißgrün'},
-      base:{hex:'#756f61',code:'RAL 7006',name:'Beigegrau'},
-      dividersAll:{hex:'#c88c95',code:'RAL 3014',name:'Altrosa'},
-      dormerGable:{hex:'#c88c95',code:'RAL 3014',name:'Altrosa'},
-      door:{hex:'#4b5140',code:'RAL 6003',name:'Olivgrün'},
-      surroundsOuterAll:{hex:'#c88c95',code:'RAL 3014',name:'Altrosa'},
-      windowBottomsAll:{hex:'#b7cdb5',code:'RAL 6019',name:'Weißgrün'}
-    }
-  },
-  {
-    name:'Hellgrau und Terrakotta',
-    desc:'Gedämpfter Kontrast mit warmem, erdigem Akzent.',
-    palette:'ral',
-    zones:{
-      facadeMain:{hex:'#cac4b9',code:'RAL 7044',name:'Seidengrau'},
-      base:{hex:'#6b665f',code:'RAL 7039',name:'Quarzgrau'},
-      dividersAll:{hex:'#a65e37',code:'RAL 8023',name:'Orangebraun'},
-      dormerGable:{hex:'#a65e37',code:'RAL 8023',name:'Orangebraun'},
-      door:{hex:'#383e42',code:'RAL 7016',name:'Anthrazitgrau'},
-      surroundsOuterAll:{hex:'#a65e37',code:'RAL 8023',name:'Orangebraun'},
-      windowBottomsAll:{hex:'#cac4b9',code:'RAL 7044',name:'Seidengrau'}
-    }
-  }
-];
-
-function applyPresetDesign(preset){
-  const data={
-    version:3,build:'V3h',name:preset.name,palette:preset.palette,
-    suggestionMode:'tone',zones:preset.zones
-  };
-  loadPayload(data);
+function currentPresetGroup() {
+  return presetData.groups.find(group => group.id === presetGroupId) || presetData.groups[0] || { items: [] };
 }
 
-function renderPresetDesigns(){
-  const grid=document.getElementById('presetGrid');
-  grid.innerHTML=presetDesigns.map((p,i)=>{
-    const z=p.zones;
-    return `<button class="preset-card" data-preset="${i}">
-      <div class="preset-swatches">
-        <span style="background:${z.facadeMain.hex}"></span>
-        <span style="background:${z.dividersAll.hex}"></span>
-        <span style="background:${z.base.hex}"></span>
-        <span style="background:${z.door.hex}"></span>
-      </div>
-      <div class="preset-name">${p.name}</div>
-      <div class="preset-desc">${p.desc}</div>
-    </button>`;
-  }).join('');
-  grid.querySelectorAll('[data-preset]').forEach(b=>{
-    b.addEventListener('click',()=>applyPresetDesign(presetDesigns[Number(b.dataset.preset)]));
+function applyPresetDesign(preset) {
+  loadPayload({
+    version: 3,
+    build: 'V3i',
+    name: preset.name,
+    palette: collectionBrand(preset.collection),
+    collection: preset.collection,
+    suggestionMode: preset.suggestionMode || 'tone',
+    zones: preset.zones
   });
 }
-renderPresetDesigns();
+
+function renderPresetTabs() {
+  const tabs = document.getElementById('presetTabs');
+  tabs.innerHTML = presetData.groups.map(group =>
+    `<button class="${group.id === presetGroupId ? 'active' : ''}" data-group="${group.id}">${group.label}</button>`
+  ).join('');
+  tabs.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => {
+      presetGroupId = button.dataset.group;
+      presetPage = 1;
+      renderPresetTabs();
+      renderPresetDesigns();
+    });
+  });
+}
+
+function renderPresetDesigns() {
+  const group = currentPresetGroup();
+  const totalPages = Math.max(1, Math.ceil(group.items.length / presetsPerPage));
+  presetPage = Math.min(Math.max(1, presetPage), totalPages);
+  const items = group.items.slice((presetPage - 1) * presetsPerPage, presetPage * presetsPerPage);
+  const grid = document.getElementById('presetGrid');
+
+  grid.innerHTML = items.map((preset, index) => {
+    const zones = preset.zones;
+    return `<button class="preset-card" data-preset="${index}">
+      <div class="preset-swatches">
+        <span style="background:${zones.facadeMain.hex}"></span>
+        <span style="background:${zones.dividersAll.hex}"></span>
+        <span style="background:${zones.base.hex}"></span>
+        <span style="background:${zones.door.hex}"></span>
+      </div>
+      <div class="preset-name">${preset.name}</div>
+      <div class="preset-desc">${preset.desc}</div>
+    </button>`;
+  }).join('');
+
+  grid.querySelectorAll('[data-preset]').forEach(button => {
+    button.addEventListener('click', () => applyPresetDesign(items[Number(button.dataset.preset)]));
+  });
+
+  renderPager('presetPager', presetPage, totalPages, direction => {
+    presetPage += direction;
+    renderPresetDesigns();
+  });
+}
+
+async function initializeAppData() {
+  try {
+    await loadExternalData();
+    setCollection('ral-classic');
+    renderPresetTabs();
+    renderPresetDesigns();
+  } catch (error) {
+    document.getElementById('paletteNote').textContent =
+      'Farbdaten konnten nicht geladen werden. Öffne die App über GitHub Pages oder einen lokalen Webserver, nicht direkt als file://-Datei.';
+    console.error(error);
+  }
+}
+
+initializeAppData();
+
 
 document.getElementById('saveDesignBtn').addEventListener('click',saveLocal);document.getElementById('showSavedBtn').addEventListener('click',renderSaved);document.getElementById('exportJsonBtn').addEventListener('click',()=>{const d=payload();download(JSON.stringify(d,null,2),safeName(d.name)+'.json','application/json');});document.getElementById('importJsonInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{loadPayload(JSON.parse(r.result))}catch{alert('Ungültige Entwurfsdatei.')}};r.readAsText(f);e.target.value='';});document.getElementById('exportPngBtn').addEventListener('click',()=>exportPng(false));document.getElementById('exportSheetBtn').addEventListener('click',()=>exportPng(true));
 
