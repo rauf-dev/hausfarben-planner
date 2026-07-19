@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hausfarben-Planer</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Inter,Segoe UI,Arial,sans-serif;background:#f3f5f7;color:#202830}
+main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;height:100vh;padding:12px}
+.viewer,.panel{background:#fff;border:1px solid #d6dce1;border-radius:12px;overflow:hidden;box-shadow:0 8px 24px #0002}
+.viewer{display:flex;flex-direction:column;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid #e0e4e8;background:#fafbfc}
+.topbar strong{font-size:.9rem}.version{font-size:.65rem;color:#7a858f}.stage-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;background:#e9edf0;padding:8px}
+.stage{position:relative;max-width:100%;max-height:100%;aspect-ratio:1542/2048;background:#222;overflow:hidden;border-radius:8px}
+.stage img,.stage svg{position:absolute;inset:0;width:100%;height:100%;display:block}.stage img{object-fit:contain}
+.stage svg{overflow:visible}.mask{fill:rgba(0,170,255,.12);stroke:#00a8ff;stroke-width:4;vector-effect:non-scaling-stroke;cursor:pointer}
+.mask:hover{fill:rgba(255,255,255,.18);stroke:#fff}.mask.selected{fill:rgba(255,204,0,.16);stroke:#ffcc00;stroke-width:6}
+.handle{fill:#fff;stroke:#1e2a33;stroke-width:2;vector-effect:non-scaling-stroke;cursor:grab}.handle:active{cursor:grabbing}
+.panel{padding:12px;overflow:auto}.panel h2{font-size:1rem;margin:0 0 8px}.active{padding:9px;background:#eef2f5;border-radius:8px;font-weight:700;font-size:.82rem;margin-bottom:10px}
+.zone-list{display:grid;gap:5px}.zone-btn{border:1px solid #dce2e7;background:#fff;border-radius:7px;padding:7px 8px;text-align:left;cursor:pointer;font-size:.78rem}
+.zone-btn.selected{outline:2px solid #26323f;background:#eef2f5}.controls{display:grid;gap:7px;margin-top:12px}.controls button,.file{border:1px solid #c7cfd6;background:#fff;border-radius:8px;padding:8px;cursor:pointer;text-align:center;font-size:.78rem}.file input{display:none}
+.row{display:flex;gap:7px}.row>*{flex:1}.hint{font-size:.72rem;line-height:1.45;color:#68737e;margin-top:10px}.status{font-size:.72rem;color:#54616c;margin-top:10px;padding-top:9px;border-top:1px solid #e2e6e9}
+@media(max-width:900px){main{grid-template-columns:1fr;height:auto}.viewer{min-height:70vh}.panel{max-height:none}}
+</style>
+</head>
+<body>
+<main>
+<section class="viewer">
+  <div class="topbar"><strong>Fotomasken kalibrieren</strong><span class="version">V4c</span></div>
+  <div class="stage-wrap">
+    <div id="stage" class="stage">
+      <img id="photo" src="data/photo-preview.jpg" alt="Hausfront">
+      <svg id="overlay" viewBox="0 0 1542 2048" aria-label="Fotomasken"></svg>
+    </div>
+  </div>
+</section>
+
+<aside class="panel">
+  <h2>Aktive Maske</h2>
+  <div id="activeLabel" class="active">Keine Maske ausgewählt</div>
+  <div id="zoneList" class="zone-list"></div>
+
+  <div class="controls">
+    <div class="row">
+      <button id="editBtn">Punkte bearbeiten</button>
+      <button id="allBtn">Alle anzeigen</button>
+    </div>
+    <button id="resetBtn">Ausgangsmasken wiederherstellen</button>
+    <button id="exportBtn">Masken als JSON exportieren</button>
+    <label class="file">Masken-JSON importieren<input id="importInput" type="file" accept=".json,application/json"></label>
+  </div>
+
+  <div class="hint">
+    Wähle eine Zone und aktiviere <strong>Punkte bearbeiten</strong>. Danach können die weißen Eckpunkte direkt auf dem Foto verschoben werden.
+    Die Masken färben noch nichts ein – diese Version dient nur der präzisen Kalibrierung.
+  </div>
+  <div id="status" class="status">Maskendaten werden geladen …</div>
+</aside>
+</main>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const overlay=document.getElementById('overlay');
+const zoneList=document.getElementById('zoneList');
+const activeLabel=document.getElementById('activeLabel');
+const statusEl=document.getElementById('status');
+let data=null,original=null,activeZoneId=null,editMode=false,showAll=true,drag=null;
+
+function svgEl(tag,attrs={},parent=overlay){
+  const el=document.createElementNS(NS,tag);
+  Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));
+  parent.appendChild(el);return el;
+}
+function polygonPoints(points){return points.map(p=>p.join(',')).join(' ')}
+function selectZone(id){
+  activeZoneId=id;
+  activeLabel.textContent=data.zones[id].label;
+  document.querySelectorAll('.zone-btn').forEach(b=>b.classList.toggle('selected',b.dataset.id===id));
+  render();
+}
+function renderZoneList(){
+  zoneList.innerHTML=Object.entries(data.zones).map(([id,z])=>`<button class="zone-btn" data-id="${id}">${z.label}</button>`).join('');
+  zoneList.querySelectorAll('button').forEach(b=>b.onclick=()=>selectZone(b.dataset.id));
+}
+function render(){
+  overlay.innerHTML='';
+  Object.entries(data.zones).forEach(([id,zone])=>{
+    if(!showAll && id!==activeZoneId)return;
+    zone.polygons.forEach((points,pi)=>{
+      const poly=svgEl('polygon',{points:polygonPoints(points),class:`mask ${id===activeZoneId?'selected':''}`,'data-zone':id,'data-poly':pi});
+      poly.addEventListener('click',e=>{e.stopPropagation();selectZone(id)});
+      if(editMode && id===activeZoneId){
+        points.forEach((p,vi)=>{
+          const h=svgEl('circle',{cx:p[0],cy:p[1],r:10,class:'handle','data-poly':pi,'data-vertex':vi});
+          h.addEventListener('pointerdown',startDrag);
+        });
+      }
+    });
+  });
+}
+function startDrag(e){
+  e.preventDefault();e.stopPropagation();
+  drag={poly:+e.target.dataset.poly,vertex:+e.target.dataset.vertex};
+  e.target.setPointerCapture(e.pointerId);
+}
+function svgPoint(evt){
+  const pt=overlay.createSVGPoint();pt.x=evt.clientX;pt.y=evt.clientY;
+  return pt.matrixTransform(overlay.getScreenCTM().inverse());
+}
+overlay.addEventListener('pointermove',e=>{
+  if(!drag||!activeZoneId)return;
+  const p=svgPoint(e);
+  data.zones[activeZoneId].polygons[drag.poly][drag.vertex]=[
+    Math.max(0,Math.min(1542,Math.round(p.x))),
+    Math.max(0,Math.min(2048,Math.round(p.y)))
+  ];
+  render();
+});
+overlay.addEventListener('pointerup',()=>{if(drag){drag=null;statusEl.textContent='Punkt verschoben. Exportiere die Masken, wenn die Kalibrierung passt.'}});
+overlay.addEventListener('click',()=>{activeZoneId=null;activeLabel.textContent='Keine Maske ausgewählt';renderZoneList();render()});
+
+document.getElementById('editBtn').onclick=()=>{
+  editMode=!editMode;
+  document.getElementById('editBtn').textContent=editMode?'Bearbeitung beenden':'Punkte bearbeiten';
+  statusEl.textContent=editMode?'Bearbeitungsmodus aktiv: weiße Punkte verschieben.':'Bearbeitungsmodus beendet.';
+  render();
+};
+document.getElementById('allBtn').onclick=()=>{
+  showAll=!showAll;
+  document.getElementById('allBtn').textContent=showAll?'Nur aktive Maske':'Alle anzeigen';
+  render();
+};
+document.getElementById('resetBtn').onclick=()=>{
+  data=structuredClone(original);activeZoneId=null;renderZoneList();render();activeLabel.textContent='Keine Maske ausgewählt';statusEl.textContent='Ausgangsmasken wiederhergestellt.';
+};
+document.getElementById('exportBtn').onclick=()=>{
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='photo-masks-calibrated.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),500);
+};
+document.getElementById('importInput').onchange=e=>{
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{try{data=JSON.parse(reader.result);original=structuredClone(data);activeZoneId=null;renderZoneList();render();statusEl.textContent='Masken importiert.'}catch{alert('Ungültige JSON-Datei.')}};
+  reader.readAsText(file);e.target.value='';
+};
+
+fetch('data/masks.json').then(r=>r.json()).then(json=>{
+  data=json;original=structuredClone(json);renderZoneList();render();statusEl.textContent='Masken geladen. Wähle eine Zone zum Prüfen.';
+}).catch(err=>{statusEl.textContent='Masken konnten nicht geladen werden. Öffne die Seite über GitHub Pages oder einen lokalen Webserver.';console.error(err)});
+</script>
+</body>
+</html>
