@@ -24,3 +24,9 @@ python3 -m http.server 8000
 ```
 
 Dann `http://localhost:8000` öffnen.
+
+
+## Revision 2
+- Fehler behoben, durch den die Foto-/SVG-Bühne im Flex-Layout auf 0 × 0 kollabieren konnte.
+- Die Bühne nutzt nun zuverlässig die verfügbare Höhe.
+- Verständliche Fehlermeldung, falls `data/photo-preview.jpg` fehlt.
