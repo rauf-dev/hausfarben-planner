@@ -1,4 +1,4 @@
-# Hausfarben-Planer V3i
+# Hausfarben-Planer V4a
 
 ## Neu
 - Farb- und Presetdaten aus `data/*.json` statt aus `index.html`
@@ -37,3 +37,11 @@ Dann `http://localhost:8000` öffnen.
 4. Commit-Nachricht: `Add V3i palette architecture and preset pagination`
 5. **Commit to main**
 6. **Push origin**
+
+
+## Neu in V4a
+- Fotovorschau als zusätzlicher Ansichtsmodus
+- Toggle zwischen SVG-Ansicht und Fotovorschau
+- Näherungsweise Farbüberlagerung auf Basis eines Originalfotos
+
+Die Fotovorschau ist absichtlich als Annäherung gekennzeichnet. Bäume, Schatten, Perspektive und Materialstruktur bleiben aus dem Foto erhalten.
