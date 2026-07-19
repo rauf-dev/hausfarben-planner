@@ -1,4 +1,4 @@
-# Hausfarben-Planer V4a
+# Hausfarben-Planer V4b
 
 ## Neu
 - Farb- und Presetdaten aus `data/*.json` statt aus `index.html`
@@ -39,9 +39,12 @@ Dann `http://localhost:8000` öffnen.
 6. **Push origin**
 
 
-## Neu in V4a
+## Neu in V4b
 - Fotovorschau als zusätzlicher Ansichtsmodus
 - Toggle zwischen SVG-Ansicht und Fotovorschau
 - Näherungsweise Farbüberlagerung auf Basis eines Originalfotos
 
 Die Fotovorschau ist absichtlich als Annäherung gekennzeichnet. Bäume, Schatten, Perspektive und Materialstruktur bleiben aus dem Foto erhalten.
+
+
+V4b behebt den Ansichtswechsel und verwendet einen sehr kompakten SVG/Foto-Schalter direkt über der Hausansicht.

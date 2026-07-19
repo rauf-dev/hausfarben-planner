@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hausfarben-Planer V4a</title>
+  <title>Hausfarben-Planer</title>
   <style>
     :root {
       --bg: #eef3f6;
@@ -577,18 +577,16 @@
 .preset-tabs{margin-bottom:9px}
 .palette-count{font-size:.7rem;color:#6c7781}
 
-    .preview-toolbar { display:flex; gap:8px; padding:10px 12px; border-bottom:1px solid #dfe4e8; background:#fafbfc; align-items:center; justify-content:space-between; }
-    .preview-toggle { display:flex; gap:8px; }
-    .preview-toggle button { border:1px solid #c7cfd6; background:#fff; border-radius:8px; padding:7px 10px; cursor:pointer; font-size:.78rem; }
-    .preview-toggle button.active { background:#26323f; color:#fff; border-color:#26323f; }
-    .preview-hint { font-size:.73rem; color:#6a7480; }
+    .canvas { position:relative; }
+    .preview-switch { position:absolute; z-index:8; top:8px; right:8px; display:flex; gap:2px; padding:2px; background:rgba(255,255,255,.9); border:1px solid #cbd3d9; border-radius:7px; box-shadow:0 2px 8px rgba(0,0,0,.12); }
+    .preview-switch button { border:0; background:transparent; border-radius:5px; padding:4px 7px; cursor:pointer; font-size:.68rem; line-height:1; }
+    .preview-switch button.active { background:#26323f; color:#fff; }
     .view-pane { display:none; }
     .view-pane.active { display:block; }
     #photoPane { background:#f2f3f4; }
-    .photo-stage { padding:10px; background:#f4f5f6; }
-    #photoPreviewCanvas { display:block; width:100%; height:auto; background:#e8ecf0; border-radius:10px; }
-    .photo-note { padding:10px 12px; border-top:1px solid #dfe4e8; font-size:.76rem; line-height:1.45; color:#606b76; background:#fafbfc; }
-    .photo-note strong { color:#2c3946; }
+    #photoPreviewCanvas { display:block; width:100%; height:auto; background:#e8ecf0; }
+    .canvas-footer { display:flex; justify-content:space-between; gap:8px; padding:3px 8px; border-top:1px solid #e1e5e8; color:#7a848d; background:#fafbfc; font-size:.58rem; line-height:1.2; }
+    .build-version { font-weight:700; letter-spacing:.03em; }
 </style>
 </head>
 <body>
@@ -596,21 +594,19 @@
   <div class="layout">
     <div class="house-column">
       <div class="canvas">
-        <div class="preview-toolbar">
-          <div class="preview-toggle">
-            <button id="vectorViewBtn" class="active">SVG-Ansicht</button>
-            <button id="photoViewBtn">Fotovorschau</button>
-          </div>
-          <div class="preview-hint">Fotovorschau ist eine Näherung und nutzt das Originalfoto mit Licht/Schatten.</div>
+        <div class="preview-switch" role="group" aria-label="Ansicht wählen">
+          <button id="vectorViewBtn" class="active" title="SVG-Ansicht">SVG</button>
+          <button id="photoViewBtn" title="Fotovorschau">Foto</button>
         </div>
         <div id="vectorPane" class="view-pane active">
           <svg id="house" viewBox="0 0 860 1000" role="img" aria-label="Vektorzeichnung der Hausfassade"></svg>
         </div>
         <div id="photoPane" class="view-pane">
-          <div class="photo-stage">
-            <canvas id="photoPreviewCanvas" width="1542" height="2048" aria-label="Fotovorschau der Hausfassade"></canvas>
-          </div>
-          <div class="photo-note"><strong>Hinweis:</strong> Diese Fotovorschau ist bewusst nur eine realistische Annäherung. Perspektive, Baumabdeckung, Licht und Materialstruktur stammen aus dem aufgenommenen Foto.</div>
+          <canvas id="photoPreviewCanvas" width="1542" height="2048" aria-label="Fotovorschau der Hausfassade"></canvas>
+        </div>
+        <div class="canvas-footer">
+          <span>Fotovorschau = unverbindliche Annäherung</span>
+          <span class="build-version">V4b</span>
         </div>
       </div>
     </div>
@@ -618,7 +614,7 @@
     <aside class="zone-panel">
       <div class="panel-title-row">
         <strong>Hausfarben-Planer</strong>
-        <span>V4a</span>
+        <span>V4b</span>
       </div>
 
       <div class="selection-bar">
@@ -1100,7 +1096,7 @@ function setPalette(palette) {
 
 function snapshotZones(){const out={};Object.keys(zoneNames).forEach(id=>{const e=document.querySelector(`.zone[data-zone-id="${id}"]`);if(e)out[id]={hex:e.style.fill||getComputedStyle(e).fill,code:e.dataset.colorCode||'Original',name:e.dataset.colorName||'Original'};});return out;}
 function applySnapshot(s){Object.entries(s||{}).forEach(([id,v])=>document.querySelectorAll(`.zone[data-zone-id="${id}"]`).forEach(e=>{e.style.fill=v.hex;if(v.code&&v.code!=='Original')e.dataset.colorCode=v.code;else delete e.dataset.colorCode;if(v.name&&v.name!=='Original')e.dataset.colorName=v.name;else delete e.dataset.colorName;}));const f=s?.facadeMain;selectedMainFacadeColor=f&&f.code!=='Original'?{code:f.code,name:f.name,hex:f.hex,category:''}:null;renderSuggestions();renderPhotoPreview();}
-function payload(){return{version:3,build:'V4a',name:document.getElementById('designName').value.trim()||'Unbenannte Variante',palette:activePalette,collection:activeCollectionId,suggestionMode,zones:snapshotZones(),savedAt:new Date().toISOString()};}
+function payload(){return{version:3,build:'V4b',name:document.getElementById('designName').value.trim()||'Unbenannte Variante',palette:activePalette,collection:activeCollectionId,suggestionMode,zones:snapshotZones(),savedAt:new Date().toISOString()};}
 function loadPayload(d){if(!d?.zones)throw new Error();document.getElementById('designName').value=d.name||'Import';suggestionMode=d.suggestionMode||'tone';document.querySelectorAll('.suggestion-mode').forEach(e=>e.classList.toggle('active',e.dataset.mode===suggestionMode));setCollection(d.collection || (d.palette==='caparol'?'caparol-plus':'ral-classic'));applySnapshot(d.zones);clearSelection();document.querySelector('.status-line').textContent=`Entwurf „${d.name||'Import'}“ geladen.`;}
 function safeName(n){return(n||'hausfarben').trim().replace(/[^a-zA-Z0-9äöüÄÖÜß_-]+/g,'_')||'hausfarben';}
 function download(content,name,type){const b=content instanceof Blob?content:new Blob([content],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
@@ -1568,6 +1564,8 @@ initializeAppData();
 
 
 document.getElementById('saveDesignBtn').addEventListener('click',saveLocal);document.getElementById('showSavedBtn').addEventListener('click',renderSaved);document.getElementById('exportJsonBtn').addEventListener('click',()=>{const d=payload();download(JSON.stringify(d,null,2),safeName(d.name)+'.json','application/json');});document.getElementById('importJsonInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{loadPayload(JSON.parse(r.result))}catch{alert('Ungültige Entwurfsdatei.')}};r.readAsText(f);e.target.value='';});document.getElementById('exportPngBtn').addEventListener('click',()=>exportPng(false));document.getElementById('exportSheetBtn').addEventListener('click',()=>exportPng(true));
+document.getElementById('vectorViewBtn').addEventListener('click',()=>setPreviewMode('vector'));
+document.getElementById('photoViewBtn').addEventListener('click',()=>setPreviewMode('photo'));
 
 </script>
 </body>
