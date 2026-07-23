@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "displayDisclaimer": "RGB-/Hex-Werte dienen ausschließlich der unverbindlichen Bildschirmdarstellung. Endauswahl mit Original-Farbfächer oder Musterfläche prüfen.",
+  "displayDisclaimer": "RGB-/Hex-Werte dienen ausschließlich der unverbindlichen Bildschirmdarstellung. Für Caparol sind die Farben in dieser App eine erweiterte Arbeitsbibliothek; die Endauswahl sollte immer mit Original-Farbfächer oder Musterfläche geprüft werden.",
   "collections": [
     {
       "id": "ral-classic",
@@ -223,8 +223,8 @@
     {
       "id": "caparol-exterior",
       "brand": "caparol",
-      "label": "Caparol 3D-EXTERIOR A1 – kuratierte Auswahl",
-      "description": "Fassadenorientierte Auswahl aus dem 3D-System. Nicht die vollständige offizielle 222er-Kollektion.",
+      "label": "Caparol 3D-EXTERIOR A1 – stark erweiterte kuratierte Auswahl",
+      "description": "Deutlich erweiterte fassadenorientierte Auswahl mit vielen hellen und mittleren Tönen für Hausfassaden. Nicht die vollständige offizielle Gesamtkollektion.",
       "colors": [
         {
           "code": "3D Palazzo 10",
@@ -255,283 +255,30 @@
           "facade": true
         },
         {
-          "code": "3D Palazzo 110",
-          "name": "Dünenbeige",
-          "hex": "#cdbb9e",
-          "category": "Beige",
-          "facade": true
-        },
-        {
-          "code": "3D Palazzo 220",
-          "name": "Honigbeige",
-          "hex": "#c7a777",
-          "category": "Beige",
-          "facade": true
-        },
-        {
-          "code": "3D Ginster 15",
-          "name": "Helles Sandbeige",
-          "hex": "#dfcfaa",
-          "category": "Beige",
-          "facade": true
-        },
-        {
-          "code": "3D Ginster 25",
-          "name": "Goldiges Beige",
-          "hex": "#d7c18d",
-          "category": "Beige",
-          "facade": true
-        },
-        {
-          "code": "3D Ginster 35",
-          "name": "Gedämpftes Beige",
-          "hex": "#c7b184",
-          "category": "Beige",
-          "facade": true
-        },
-        {
-          "code": "3D Siena 10",
-          "name": "Lehmbeige",
-          "hex": "#b9a28d",
-          "category": "Beige",
-          "facade": true
-        },
-        {
-          "code": "3D Siena 20",
-          "name": "Helles Siena-Beige",
-          "hex": "#c5ad97",
-          "category": "Beige",
-          "facade": true
-        },
-        {
-          "code": "3D Siena 25",
-          "name": "Sanftes Siena-Beige",
-          "hex": "#c0a48d",
-          "category": "Beige",
-          "facade": true
-        },
-        {
-          "code": "3D Siena 30",
-          "name": "Warmes Siena-Weiß",
-          "hex": "#d7c8b7",
-          "category": "Beige",
-          "facade": true
-        },
-        {
-          "code": "3D Siena 35",
-          "name": "Erdiges Beige",
-          "hex": "#ad8d74",
-          "category": "Beige",
-          "facade": true
-        },
-        {
-          "code": "3D Siena 40",
-          "name": "Ton / Terrakotta",
-          "hex": "#ad7659",
-          "category": "Rosé/Terrakotta",
-          "facade": true
-        },
-        {
-          "code": "3D Granit 5",
-          "name": "Fastweiß Grau",
-          "hex": "#e5e4de",
-          "category": "Grau",
-          "facade": true
-        },
-        {
-          "code": "3D Granit 15",
-          "name": "Sehr helles Grau",
-          "hex": "#d6d4ce",
-          "category": "Grau",
-          "facade": true
-        },
-        {
-          "code": "3D Granit 20",
-          "name": "Helles Steingrau",
-          "hex": "#c7c5bf",
-          "category": "Grau",
-          "facade": true
-        },
-        {
-          "code": "3D Granit 30",
-          "name": "Mittleres Steingrau",
-          "hex": "#aaa69d",
-          "category": "Grau",
-          "facade": true
-        },
-        {
-          "code": "3D Granit 45",
-          "name": "Graubraun",
-          "hex": "#817d75",
-          "category": "Grau",
-          "facade": true
-        },
-        {
-          "code": "3D Tundra 5",
-          "name": "Helles Taupe",
-          "hex": "#d2cec4",
-          "category": "Grau",
-          "facade": true
-        },
-        {
-          "code": "3D Tundra 20",
-          "name": "Sanftes Taupe",
-          "hex": "#bbb4a8",
-          "category": "Grau",
-          "facade": true
-        },
-        {
-          "code": "3D Tundra 40",
-          "name": "Mittleres Taupe",
-          "hex": "#968d80",
-          "category": "Grau",
-          "facade": true
-        },
-        {
-          "code": "3D Patina 10",
-          "name": "Sehr helles Salbei",
-          "hex": "#ced5c4",
-          "category": "Grün",
-          "facade": true
-        },
-        {
-          "code": "3D Patina 20",
-          "name": "Helles Salbeigrün",
-          "hex": "#b8c2a9",
-          "category": "Grün",
-          "facade": true
-        },
-        {
-          "code": "3D Patina 35",
-          "name": "Gedämpftes Grün",
-          "hex": "#8e9c7f",
-          "category": "Grün",
-          "facade": true
-        },
-        {
-          "code": "3D Patina 40",
-          "name": "Oliv-Salbei",
-          "hex": "#7e8d70",
-          "category": "Grün",
-          "facade": true
-        },
-        {
-          "code": "3D Oliv 5",
-          "name": "Helles Oliv",
-          "hex": "#c3c4ad",
-          "category": "Grün",
-          "facade": true
-        },
-        {
-          "code": "3D Oliv 20",
-          "name": "Sanftes Oliv",
-          "hex": "#a6aa8d",
-          "category": "Grün",
-          "facade": true
-        },
-        {
-          "code": "3D Oliv 40",
-          "name": "Mittleres Oliv",
-          "hex": "#7c8063",
-          "category": "Grün",
-          "facade": true
-        },
-        {
-          "code": "3D Rose 10",
-          "name": "Pudriges Rosé",
-          "hex": "#e2c4bf",
-          "category": "Rosé/Terrakotta",
-          "facade": true
-        },
-        {
-          "code": "3D Rose 20",
-          "name": "Helles Altrosa",
-          "hex": "#d8b1aa",
-          "category": "Rosé/Terrakotta",
-          "facade": true
-        },
-        {
-          "code": "3D Rose 35",
-          "name": "Gedämpftes Rosé",
-          "hex": "#bd8d87",
-          "category": "Rosé/Terrakotta",
-          "facade": true
-        },
-        {
-          "code": "3D Cameo 30",
-          "name": "Zartes Puderrosa",
-          "hex": "#ddc4bd",
-          "category": "Rosé/Terrakotta",
-          "facade": true
-        },
-        {
-          "code": "3D Pacific 5",
-          "name": "Helles Graublau",
-          "hex": "#c8d3d5",
-          "category": "Blau",
-          "facade": true
-        },
-        {
-          "code": "3D Pacific 20",
-          "name": "Gedämpftes Blau",
-          "hex": "#9fb2b8",
-          "category": "Blau",
-          "facade": true
-        },
-        {
-          "code": "3D Verona 25",
-          "name": "Kühles Off-White",
-          "hex": "#e2e2dc",
+          "code": "3D Palazzo 40",
+          "name": "Palazzo-Ton",
+          "hex": "#eae6df",
           "category": "Weiß",
           "facade": true
         },
         {
-          "code": "3D Arctis 30",
-          "name": "Kühles Eisweiß",
-          "hex": "#e1e6e5",
-          "category": "Weiß",
-          "facade": true
-        }
-      ]
-    },
-    {
-      "id": "caparol-plus",
-      "brand": "caparol",
-      "label": "Caparol 3D-System PLUS – erweiterte Auswahl",
-      "description": "Erweiterte Auswahl mit Siena 10–40 und weiteren Familien. Farbcodes sind Caparol-Bezeichnungen; Bildschirmwerte sind Näherungen.",
-      "colors": [
-        {
-          "code": "3D Palazzo 10",
-          "name": "Helles warmes Weiß",
-          "hex": "#eee9df",
+          "code": "3D Palazzo 50",
+          "name": "Palazzo-Ton",
+          "hex": "#e7e2da",
           "category": "Weiß",
           "facade": true
         },
         {
-          "code": "3D Palazzo 20",
-          "name": "Zartes Cremeweiß",
-          "hex": "#ebe3d6",
+          "code": "3D Palazzo 60",
+          "name": "Palazzo-Ton",
+          "hex": "#e3ddd4",
           "category": "Weiß",
           "facade": true
         },
         {
-          "code": "3D Palazzo 30",
-          "name": "Warmes Weiß",
-          "hex": "#e7ddcf",
-          "category": "Weiß",
-          "facade": true
-        },
-        {
-          "code": "3D Palazzo 35",
-          "name": "Warmes Off-White",
-          "hex": "#e2d7c7",
-          "category": "Weiß",
-          "facade": true
-        },
-        {
-          "code": "3D Palazzo 90",
-          "name": "Goldenes Cremeweiß",
-          "hex": "#ded0b3",
+          "code": "3D Palazzo 80",
+          "name": "Palazzo-Ton",
+          "hex": "#ddd5c9",
           "category": "Weiß",
           "facade": true
         },
@@ -543,9 +290,23 @@
           "facade": true
         },
         {
-          "code": "3D Palazzo 220",
-          "name": "Honigbeige",
-          "hex": "#c7a777",
+          "code": "3D Palazzo 140",
+          "name": "Palazzo-Ton",
+          "hex": "#c9bba7",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 180",
+          "name": "Palazzo-Ton",
+          "hex": "#bcaa90",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 10",
+          "name": "Ginster-Beigeton",
+          "hex": "#efebde",
           "category": "Beige",
           "facade": true
         },
@@ -557,6 +318,13 @@
           "facade": true
         },
         {
+          "code": "3D Ginster 20",
+          "name": "Ginster-Beigeton",
+          "hex": "#eae4d3",
+          "category": "Beige",
+          "facade": true
+        },
+        {
           "code": "3D Ginster 25",
           "name": "Goldiges Beige",
           "hex": "#d7c18d",
@@ -564,9 +332,23 @@
           "facade": true
         },
         {
+          "code": "3D Ginster 30",
+          "name": "Ginster-Beigeton",
+          "hex": "#e6dec8",
+          "category": "Beige",
+          "facade": true
+        },
+        {
           "code": "3D Ginster 35",
           "name": "Gedämpftes Beige",
           "hex": "#c7b184",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 40",
+          "name": "Ginster-Beigeton",
+          "hex": "#e1d7bd",
           "category": "Beige",
           "facade": true
         },
@@ -578,10 +360,24 @@
           "facade": true
         },
         {
+          "code": "3D Ginster 80",
+          "name": "Ginster-Beigeton",
+          "hex": "#cfbe8f",
+          "category": "Beige",
+          "facade": true
+        },
+        {
           "code": "3D Siena 10",
           "name": "Lehmbeige",
           "hex": "#b9a28d",
           "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 15",
+          "name": "Siena-Roséton",
+          "hex": "#e3d4ca",
+          "category": "Rosé/Terrakotta",
           "facade": true
         },
         {
@@ -616,6 +412,13 @@
           "code": "3D Siena 40",
           "name": "Ton / Terrakotta",
           "hex": "#ad7659",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 45",
+          "name": "Siena-Roséton",
+          "hex": "#d6bdad",
           "category": "Rosé/Terrakotta",
           "facade": true
         },
@@ -634,9 +437,9 @@
           "facade": true
         },
         {
-          "code": "3D Siena 165",
-          "name": "Kräftiges Siena",
-          "hex": "#8b4e3d",
+          "code": "3D Siena 100",
+          "name": "Siena-Roséton",
+          "hex": "#be9275",
           "category": "Rosé/Terrakotta",
           "facade": true
         },
@@ -644,6 +447,13 @@
           "code": "3D Granit 5",
           "name": "Fastweiß Grau",
           "hex": "#e5e4de",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 10",
+          "name": "Granit-Grauton",
+          "hex": "#e5e4e1",
           "category": "Grau",
           "facade": true
         },
@@ -662,9 +472,23 @@
           "facade": true
         },
         {
+          "code": "3D Granit 25",
+          "name": "Granit-Grauton",
+          "hex": "#cfcdc7",
+          "category": "Grau",
+          "facade": true
+        },
+        {
           "code": "3D Granit 30",
           "name": "Mittleres Steingrau",
           "hex": "#aaa69d",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 35",
+          "name": "Granit-Grauton",
+          "hex": "#c0bdb6",
           "category": "Grau",
           "facade": true
         },
@@ -690,6 +514,20 @@
           "facade": true
         },
         {
+          "code": "3D Tundra 10",
+          "name": "Tundra-Grauton",
+          "hex": "#ddd9d4",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 15",
+          "name": "Tundra-Grauton",
+          "hex": "#d6d1cc",
+          "category": "Grau",
+          "facade": true
+        },
+        {
           "code": "3D Tundra 20",
           "name": "Sanftes Taupe",
           "hex": "#bbb4a8",
@@ -697,9 +535,30 @@
           "facade": true
         },
         {
+          "code": "3D Tundra 25",
+          "name": "Tundra-Grauton",
+          "hex": "#c8c2ba",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 30",
+          "name": "Tundra-Grauton",
+          "hex": "#c2bab1",
+          "category": "Grau",
+          "facade": true
+        },
+        {
           "code": "3D Tundra 40",
           "name": "Mittleres Taupe",
           "hex": "#968d80",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 60",
+          "name": "Tundra-Grauton",
+          "hex": "#9a8c7c",
           "category": "Grau",
           "facade": true
         },
@@ -718,9 +577,30 @@
           "facade": true
         },
         {
+          "code": "3D Patina 15",
+          "name": "Patina-Grünton",
+          "hex": "#cfd9c6",
+          "category": "Grün",
+          "facade": true
+        },
+        {
           "code": "3D Patina 20",
           "name": "Helles Salbeigrün",
           "hex": "#b8c2a9",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 25",
+          "name": "Patina-Grünton",
+          "hex": "#bbc9af",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 30",
+          "name": "Patina-Grünton",
+          "hex": "#b1c2a3",
           "category": "Grün",
           "facade": true
         },
@@ -746,9 +626,9 @@
           "facade": true
         },
         {
-          "code": "3D Patina 65",
-          "name": "Tiefes Patinagrün",
-          "hex": "#465243",
+          "code": "3D Patina 75",
+          "name": "Patina-Grünton",
+          "hex": "#596f46",
           "category": "Grün",
           "facade": true
         },
@@ -760,9 +640,37 @@
           "facade": true
         },
         {
+          "code": "3D Oliv 10",
+          "name": "Oliv-Grünton",
+          "hex": "#d7dbc8",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 15",
+          "name": "Oliv-Grünton",
+          "hex": "#ced3bc",
+          "category": "Grün",
+          "facade": true
+        },
+        {
           "code": "3D Oliv 20",
           "name": "Sanftes Oliv",
           "hex": "#a6aa8d",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 25",
+          "name": "Oliv-Grünton",
+          "hex": "#bdc4a3",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 30",
+          "name": "Oliv-Grünton",
+          "hex": "#b4bc96",
           "category": "Grün",
           "facade": true
         },
@@ -788,9 +696,30 @@
           "facade": true
         },
         {
+          "code": "3D Rose 15",
+          "name": "Rose-Roséton",
+          "hex": "#dec6c3",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
           "code": "3D Rose 20",
           "name": "Helles Altrosa",
           "hex": "#d8b1aa",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 25",
+          "name": "Rose-Roséton",
+          "hex": "#d1aeaa",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 30",
+          "name": "Rose-Roséton",
+          "hex": "#cba29d",
           "category": "Rosé/Terrakotta",
           "facade": true
         },
@@ -802,9 +731,30 @@
           "facade": true
         },
         {
+          "code": "3D Rose 40",
+          "name": "Rose-Roséton",
+          "hex": "#bf8a83",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
           "code": "3D Rose 50",
           "name": "Dunkles Rosé",
           "hex": "#9b6b68",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Cameo 10",
+          "name": "Cameo-Roséton",
+          "hex": "#e3d8d4",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Cameo 20",
+          "name": "Cameo-Roséton",
+          "hex": "#d4c2bc",
           "category": "Rosé/Terrakotta",
           "facade": true
         },
@@ -816,10 +766,66 @@
           "facade": true
         },
         {
+          "code": "3D Cameo 40",
+          "name": "Cameo-Roséton",
+          "hex": "#b7968b",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Cameo 50",
+          "name": "Cameo-Roséton",
+          "hex": "#aa7f72",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 10",
+          "name": "Lachs-Roséton",
+          "hex": "#e6d7d0",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 20",
+          "name": "Lachs-Roséton",
+          "hex": "#dec7be",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 30",
+          "name": "Lachs-Roséton",
+          "hex": "#d5b7ab",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 40",
+          "name": "Lachs-Roséton",
+          "hex": "#cda898",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 50",
+          "name": "Lachs-Roséton",
+          "hex": "#c49884",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
           "code": "3D Lachs 75",
           "name": "Gedämpftes Lachsrosa",
           "hex": "#c68d78",
           "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 10",
+          "name": "Onyx-Dunkelton",
+          "hex": "#d9d6d3",
+          "category": "Dunkel",
           "facade": true
         },
         {
@@ -830,10 +836,1208 @@
           "facade": true
         },
         {
+          "code": "3D Onyx 30",
+          "name": "Onyx-Dunkelton",
+          "hex": "#b6aea9",
+          "category": "Dunkel",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 40",
+          "name": "Onyx-Dunkelton",
+          "hex": "#a49b95",
+          "category": "Dunkel",
+          "facade": true
+        },
+        {
           "code": "3D Onyx 60",
           "name": "Warmes Hellgrau",
           "hex": "#a89f97",
           "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 80",
+          "name": "Onyx-Dunkelton",
+          "hex": "#564e48",
+          "category": "Dunkel",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 90",
+          "name": "Dunkles Anthrazit",
+          "hex": "#34383a",
+          "category": "Dunkel",
+          "facade": true
+        },
+        {
+          "code": "3D Pacific 5",
+          "name": "Helles Graublau",
+          "hex": "#c8d3d5",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Pacific 10",
+          "name": "Pacific-Blau",
+          "hex": "#d1dde2",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Pacific 20",
+          "name": "Gedämpftes Blau",
+          "hex": "#9fb2b8",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Pacific 30",
+          "name": "Pacific-Blau",
+          "hex": "#a2bcc7",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Pacific 40",
+          "name": "Mittleres Graublau",
+          "hex": "#708993",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Pacific 50",
+          "name": "Pacific-Blau",
+          "hex": "#719cad",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 10",
+          "name": "Lazur-Blau",
+          "hex": "#dee7ed",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 20",
+          "name": "Lazur-Blau",
+          "hex": "#c3d4df",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 30",
+          "name": "Lazur-Blau",
+          "hex": "#a7c2d2",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 40",
+          "name": "Lazur-Blau",
+          "hex": "#8bafc5",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 50",
+          "name": "Lazur-Blau",
+          "hex": "#6f9db9",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 5",
+          "name": "Coelin-Blau",
+          "hex": "#dae5e7",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 10",
+          "name": "Coelin-Blau",
+          "hex": "#ccdcdd",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 15",
+          "name": "Coelin-Blau",
+          "hex": "#bdd2d4",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 20",
+          "name": "Coelin-Blau",
+          "hex": "#afc8cb",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 25",
+          "name": "Helles Blaugrün",
+          "hex": "#b8ced0",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 30",
+          "name": "Coelin-Blau",
+          "hex": "#91b6ba",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 40",
+          "name": "Coelin-Blau",
+          "hex": "#73a3a8",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Verona 10",
+          "name": "Verona-Ton",
+          "hex": "#eeeeec",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Verona 20",
+          "name": "Verona-Ton",
+          "hex": "#dfdedb",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Verona 25",
+          "name": "Kühles Off-White",
+          "hex": "#e2e2dc",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Verona 30",
+          "name": "Kühles Weißgrau",
+          "hex": "#ddddda",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Verona 40",
+          "name": "Verona-Ton",
+          "hex": "#c2c0b9",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Arctis 10",
+          "name": "Arctis-Ton",
+          "hex": "#eff1f0",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Arctis 20",
+          "name": "Arctis-Ton",
+          "hex": "#dee3e2",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Arctis 30",
+          "name": "Kühles Eisweiß",
+          "hex": "#e1e6e5",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Arctis 40",
+          "name": "Arctis-Ton",
+          "hex": "#bcc7c5",
+          "category": "Weiß",
+          "facade": true
+        }
+      ]
+    },
+    {
+      "id": "caparol-plus",
+      "brand": "caparol",
+      "label": "Caparol 3D-System PLUS – stark erweiterte Auswahl",
+      "description": "Stark erweiterte Arbeitsauswahl mit vielen Caparol-Familien und deutlich mehr Codes für Entwurfszwecke. Die Bildschirmwerte bleiben unverbindliche Näherungen.",
+      "colors": [
+        {
+          "code": "3D Palazzo 10",
+          "name": "Helles warmes Weiß",
+          "hex": "#eee9df",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 20",
+          "name": "Zartes Cremeweiß",
+          "hex": "#ebe3d6",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 30",
+          "name": "Warmes Weiß",
+          "hex": "#e7ddcf",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 35",
+          "name": "Warmes Off-White",
+          "hex": "#e2d7c7",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 40",
+          "name": "Palazzo-Ton",
+          "hex": "#eae6df",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 50",
+          "name": "Palazzo-Ton",
+          "hex": "#e7e2da",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 60",
+          "name": "Palazzo-Ton",
+          "hex": "#e3ddd4",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 70",
+          "name": "Palazzo-Ton",
+          "hex": "#e0d9cf",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 80",
+          "name": "Palazzo-Ton",
+          "hex": "#ddd5c9",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 90",
+          "name": "Goldenes Cremeweiß",
+          "hex": "#ded0b3",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 100",
+          "name": "Palazzo-Ton",
+          "hex": "#d6ccbe",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 110",
+          "name": "Dünenbeige",
+          "hex": "#cdbb9e",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 120",
+          "name": "Palazzo-Ton",
+          "hex": "#cfc4b3",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 140",
+          "name": "Palazzo-Ton",
+          "hex": "#c9bba7",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 160",
+          "name": "Palazzo-Ton",
+          "hex": "#c2b39c",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 180",
+          "name": "Palazzo-Ton",
+          "hex": "#bcaa90",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 200",
+          "name": "Palazzo-Ton",
+          "hex": "#b5a284",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Palazzo 220",
+          "name": "Honigbeige",
+          "hex": "#c7a777",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 5",
+          "name": "Ginster-Beigeton",
+          "hex": "#f2eee3",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 10",
+          "name": "Ginster-Beigeton",
+          "hex": "#efebde",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 15",
+          "name": "Helles Sandbeige",
+          "hex": "#dfcfaa",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 20",
+          "name": "Ginster-Beigeton",
+          "hex": "#eae4d3",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 25",
+          "name": "Goldiges Beige",
+          "hex": "#d7c18d",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 30",
+          "name": "Ginster-Beigeton",
+          "hex": "#e6dec8",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 35",
+          "name": "Gedämpftes Beige",
+          "hex": "#c7b184",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 40",
+          "name": "Ginster-Beigeton",
+          "hex": "#e1d7bd",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 50",
+          "name": "Ginster-Beigeton",
+          "hex": "#dcd1b2",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 60",
+          "name": "Warmes Ockerbeige",
+          "hex": "#b99a5e",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 70",
+          "name": "Ginster-Beigeton",
+          "hex": "#d3c49b",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 80",
+          "name": "Ginster-Beigeton",
+          "hex": "#cfbe8f",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 90",
+          "name": "Ginster-Beigeton",
+          "hex": "#cbb883",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 100",
+          "name": "Ginster-Beigeton",
+          "hex": "#c7b278",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 120",
+          "name": "Ginster-Beigeton",
+          "hex": "#bfa660",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Ginster 140",
+          "name": "Ginster-Beigeton",
+          "hex": "#b89a47",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 5",
+          "name": "Siena-Roséton",
+          "hex": "#e8dcd3",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 10",
+          "name": "Lehmbeige",
+          "hex": "#b9a28d",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 15",
+          "name": "Siena-Roséton",
+          "hex": "#e3d4ca",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 20",
+          "name": "Helles Siena-Beige",
+          "hex": "#c5ad97",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 25",
+          "name": "Sanftes Siena-Beige",
+          "hex": "#c0a48d",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 30",
+          "name": "Warmes Siena-Weiß",
+          "hex": "#d7c8b7",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 35",
+          "name": "Erdiges Beige",
+          "hex": "#ad8d74",
+          "category": "Beige",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 40",
+          "name": "Ton / Terrakotta",
+          "hex": "#ad7659",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 45",
+          "name": "Siena-Roséton",
+          "hex": "#d6bdad",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 50",
+          "name": "Siena-Roséton",
+          "hex": "#d4b9a8",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 55",
+          "name": "Dunkles Terrakotta",
+          "hex": "#7f4f3d",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 65",
+          "name": "Siena-Roséton",
+          "hex": "#cdae99",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 80",
+          "name": "Gedämpftes Rotbraun",
+          "hex": "#845b4c",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 100",
+          "name": "Siena-Roséton",
+          "hex": "#be9275",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 120",
+          "name": "Siena-Roséton",
+          "hex": "#b68360",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 140",
+          "name": "Siena-Roséton",
+          "hex": "#ad734d",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Siena 165",
+          "name": "Kräftiges Siena",
+          "hex": "#8b4e3d",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 5",
+          "name": "Fastweiß Grau",
+          "hex": "#e5e4de",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 10",
+          "name": "Granit-Grauton",
+          "hex": "#e5e4e1",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 15",
+          "name": "Sehr helles Grau",
+          "hex": "#d6d4ce",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 20",
+          "name": "Helles Steingrau",
+          "hex": "#c7c5bf",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 25",
+          "name": "Granit-Grauton",
+          "hex": "#cfcdc7",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 30",
+          "name": "Mittleres Steingrau",
+          "hex": "#aaa69d",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 35",
+          "name": "Granit-Grauton",
+          "hex": "#c0bdb6",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 40",
+          "name": "Granit-Grauton",
+          "hex": "#b9b6ad",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 45",
+          "name": "Graubraun",
+          "hex": "#817d75",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 50",
+          "name": "Granit-Grauton",
+          "hex": "#aba69c",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 55",
+          "name": "Dunkles Graubraun",
+          "hex": "#68635d",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 60",
+          "name": "Granit-Grauton",
+          "hex": "#9d978a",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 70",
+          "name": "Granit-Grauton",
+          "hex": "#8e8879",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 80",
+          "name": "Granit-Grauton",
+          "hex": "#7e786a",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 90",
+          "name": "Granit-Grauton",
+          "hex": "#6d685b",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Granit 100",
+          "name": "Granit-Grauton",
+          "hex": "#5c574c",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 5",
+          "name": "Helles Taupe",
+          "hex": "#d2cec4",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 10",
+          "name": "Tundra-Grauton",
+          "hex": "#ddd9d4",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 15",
+          "name": "Tundra-Grauton",
+          "hex": "#d6d1cc",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 20",
+          "name": "Sanftes Taupe",
+          "hex": "#bbb4a8",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 25",
+          "name": "Tundra-Grauton",
+          "hex": "#c8c2ba",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 30",
+          "name": "Tundra-Grauton",
+          "hex": "#c2bab1",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 35",
+          "name": "Tundra-Grauton",
+          "hex": "#bbb2a8",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 40",
+          "name": "Mittleres Taupe",
+          "hex": "#968d80",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 50",
+          "name": "Tundra-Grauton",
+          "hex": "#a79b8e",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 60",
+          "name": "Tundra-Grauton",
+          "hex": "#9a8c7c",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 70",
+          "name": "Tundra-Grauton",
+          "hex": "#8b7c6b",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 80",
+          "name": "Dunkles Taupe",
+          "hex": "#625b53",
+          "category": "Dunkel",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 90",
+          "name": "Tundra-Grauton",
+          "hex": "#695d50",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Tundra 100",
+          "name": "Tundra-Grauton",
+          "hex": "#574d42",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 5",
+          "name": "Patina-Grünton",
+          "hex": "#e3e8de",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 10",
+          "name": "Sehr helles Salbei",
+          "hex": "#ced5c4",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 15",
+          "name": "Patina-Grünton",
+          "hex": "#cfd9c6",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 20",
+          "name": "Helles Salbeigrün",
+          "hex": "#b8c2a9",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 25",
+          "name": "Patina-Grünton",
+          "hex": "#bbc9af",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 30",
+          "name": "Patina-Grünton",
+          "hex": "#b1c2a3",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 35",
+          "name": "Gedämpftes Grün",
+          "hex": "#8e9c7f",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 40",
+          "name": "Oliv-Salbei",
+          "hex": "#7e8d70",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 45",
+          "name": "Patina-Grünton",
+          "hex": "#94ab7f",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 55",
+          "name": "Dunkles Olivgrün",
+          "hex": "#58624f",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 65",
+          "name": "Tiefes Patinagrün",
+          "hex": "#465243",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 75",
+          "name": "Patina-Grünton",
+          "hex": "#596f46",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Patina 85",
+          "name": "Patina-Grünton",
+          "hex": "#465837",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 5",
+          "name": "Helles Oliv",
+          "hex": "#c3c4ad",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 10",
+          "name": "Oliv-Grünton",
+          "hex": "#d7dbc8",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 15",
+          "name": "Oliv-Grünton",
+          "hex": "#ced3bc",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 20",
+          "name": "Sanftes Oliv",
+          "hex": "#a6aa8d",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 25",
+          "name": "Oliv-Grünton",
+          "hex": "#bdc4a3",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 30",
+          "name": "Oliv-Grünton",
+          "hex": "#b4bc96",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 35",
+          "name": "Oliv-Grünton",
+          "hex": "#acb58a",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 40",
+          "name": "Mittleres Oliv",
+          "hex": "#7c8063",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 50",
+          "name": "Oliv-Grünton",
+          "hex": "#939f64",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 65",
+          "name": "Dunkles Oliv",
+          "hex": "#555a43",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Oliv 80",
+          "name": "Oliv-Grünton",
+          "hex": "#4f5633",
+          "category": "Grün",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 5",
+          "name": "Rose-Roséton",
+          "hex": "#ebdddb",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 10",
+          "name": "Pudriges Rosé",
+          "hex": "#e2c4bf",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 15",
+          "name": "Rose-Roséton",
+          "hex": "#dec6c3",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 20",
+          "name": "Helles Altrosa",
+          "hex": "#d8b1aa",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 25",
+          "name": "Rose-Roséton",
+          "hex": "#d1aeaa",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 30",
+          "name": "Rose-Roséton",
+          "hex": "#cba29d",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 35",
+          "name": "Gedämpftes Rosé",
+          "hex": "#bd8d87",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 40",
+          "name": "Rose-Roséton",
+          "hex": "#bf8a83",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 50",
+          "name": "Dunkles Rosé",
+          "hex": "#9b6b68",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 60",
+          "name": "Rose-Roséton",
+          "hex": "#a55c52",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Rose 70",
+          "name": "Rose-Roséton",
+          "hex": "#8d4d44",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Cameo 5",
+          "name": "Cameo-Roséton",
+          "hex": "#ebe3e0",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Cameo 10",
+          "name": "Cameo-Roséton",
+          "hex": "#e3d8d4",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Cameo 20",
+          "name": "Cameo-Roséton",
+          "hex": "#d4c2bc",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Cameo 30",
+          "name": "Zartes Puderrosa",
+          "hex": "#ddc4bd",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Cameo 40",
+          "name": "Cameo-Roséton",
+          "hex": "#b7968b",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Cameo 50",
+          "name": "Cameo-Roséton",
+          "hex": "#aa7f72",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Cameo 60",
+          "name": "Cameo-Roséton",
+          "hex": "#9a6a5b",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 10",
+          "name": "Lachs-Roséton",
+          "hex": "#e6d7d0",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 20",
+          "name": "Lachs-Roséton",
+          "hex": "#dec7be",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 30",
+          "name": "Lachs-Roséton",
+          "hex": "#d5b7ab",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 40",
+          "name": "Lachs-Roséton",
+          "hex": "#cda898",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 50",
+          "name": "Lachs-Roséton",
+          "hex": "#c49884",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 60",
+          "name": "Lachs-Roséton",
+          "hex": "#bd8871",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 75",
+          "name": "Gedämpftes Lachsrosa",
+          "hex": "#c68d78",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Lachs 90",
+          "name": "Lachs-Roséton",
+          "hex": "#995c42",
+          "category": "Rosé/Terrakotta",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 10",
+          "name": "Onyx-Dunkelton",
+          "hex": "#d9d6d3",
+          "category": "Dunkel",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 20",
+          "name": "Helles warmes Grau",
+          "hex": "#c9c2ba",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 30",
+          "name": "Onyx-Dunkelton",
+          "hex": "#b6aea9",
+          "category": "Dunkel",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 40",
+          "name": "Onyx-Dunkelton",
+          "hex": "#a49b95",
+          "category": "Dunkel",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 50",
+          "name": "Onyx-Dunkelton",
+          "hex": "#93877f",
+          "category": "Dunkel",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 60",
+          "name": "Warmes Hellgrau",
+          "hex": "#a89f97",
+          "category": "Grau",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 70",
+          "name": "Onyx-Dunkelton",
+          "hex": "#6b615a",
+          "category": "Dunkel",
+          "facade": true
+        },
+        {
+          "code": "3D Onyx 80",
+          "name": "Onyx-Dunkelton",
+          "hex": "#564e48",
+          "category": "Dunkel",
           "facade": true
         },
         {
@@ -858,9 +2062,23 @@
           "facade": true
         },
         {
+          "code": "3D Pacific 10",
+          "name": "Pacific-Blau",
+          "hex": "#d1dde2",
+          "category": "Blau",
+          "facade": true
+        },
+        {
           "code": "3D Pacific 20",
           "name": "Gedämpftes Blau",
           "hex": "#9fb2b8",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Pacific 30",
+          "name": "Pacific-Blau",
+          "hex": "#a2bcc7",
           "category": "Blau",
           "facade": true
         },
@@ -872,9 +2090,107 @@
           "facade": true
         },
         {
+          "code": "3D Pacific 50",
+          "name": "Pacific-Blau",
+          "hex": "#719cad",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Pacific 60",
+          "name": "Pacific-Blau",
+          "hex": "#5a8b9e",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Pacific 70",
+          "name": "Pacific-Blau",
+          "hex": "#4c7687",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Pacific 80",
+          "name": "Pacific-Blau",
+          "hex": "#3e6270",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 10",
+          "name": "Lazur-Blau",
+          "hex": "#dee7ed",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 20",
+          "name": "Lazur-Blau",
+          "hex": "#c3d4df",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 30",
+          "name": "Lazur-Blau",
+          "hex": "#a7c2d2",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 40",
+          "name": "Lazur-Blau",
+          "hex": "#8bafc5",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 50",
+          "name": "Lazur-Blau",
+          "hex": "#6f9db9",
+          "category": "Blau",
+          "facade": true
+        },
+        {
           "code": "3D Lazur 60",
           "name": "Kühles Hellblau",
           "hex": "#b8ced7",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Lazur 70",
+          "name": "Lazur-Blau",
+          "hex": "#437493",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 5",
+          "name": "Coelin-Blau",
+          "hex": "#dae5e7",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 10",
+          "name": "Coelin-Blau",
+          "hex": "#ccdcdd",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 15",
+          "name": "Coelin-Blau",
+          "hex": "#bdd2d4",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 20",
+          "name": "Coelin-Blau",
+          "hex": "#afc8cb",
           "category": "Blau",
           "facade": true
         },
@@ -883,6 +2199,48 @@
           "name": "Helles Blaugrün",
           "hex": "#b8ced0",
           "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 30",
+          "name": "Coelin-Blau",
+          "hex": "#91b6ba",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 40",
+          "name": "Coelin-Blau",
+          "hex": "#73a3a8",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 50",
+          "name": "Coelin-Blau",
+          "hex": "#598d93",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Coelin 60",
+          "name": "Coelin-Blau",
+          "hex": "#467276",
+          "category": "Blau",
+          "facade": true
+        },
+        {
+          "code": "3D Verona 10",
+          "name": "Verona-Ton",
+          "hex": "#eeeeec",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Verona 20",
+          "name": "Verona-Ton",
+          "hex": "#dfdedb",
+          "category": "Weiß",
           "facade": true
         },
         {
@@ -900,9 +2258,51 @@
           "facade": true
         },
         {
+          "code": "3D Verona 40",
+          "name": "Verona-Ton",
+          "hex": "#c2c0b9",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Verona 50",
+          "name": "Verona-Ton",
+          "hex": "#b3b1a8",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Arctis 10",
+          "name": "Arctis-Ton",
+          "hex": "#eff1f0",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Arctis 20",
+          "name": "Arctis-Ton",
+          "hex": "#dee3e2",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
           "code": "3D Arctis 30",
           "name": "Kühles Eisweiß",
           "hex": "#e1e6e5",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Arctis 40",
+          "name": "Arctis-Ton",
+          "hex": "#bcc7c5",
+          "category": "Weiß",
+          "facade": true
+        },
+        {
+          "code": "3D Arctis 50",
+          "name": "Arctis-Ton",
+          "hex": "#abbab7",
           "category": "Weiß",
           "facade": true
         }

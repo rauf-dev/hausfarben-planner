@@ -1,4 +1,4 @@
-# Hausfarben-Planer V4b
+# Hausfarben-Planer V4e
 
 ## Neu
 - Farb- und Presetdaten aus `data/*.json` statt aus `index.html`
@@ -39,7 +39,7 @@ Dann `http://localhost:8000` öffnen.
 6. **Push origin**
 
 
-## Neu in V4b
+## Neu in V4e
 - Fotovorschau als zusätzlicher Ansichtsmodus
 - Toggle zwischen SVG-Ansicht und Fotovorschau
 - Näherungsweise Farbüberlagerung auf Basis eines Originalfotos
@@ -47,4 +47,42 @@ Dann `http://localhost:8000` öffnen.
 Die Fotovorschau ist absichtlich als Annäherung gekennzeichnet. Bäume, Schatten, Perspektive und Materialstruktur bleiben aus dem Foto erhalten.
 
 
-V4b behebt den Ansichtswechsel und verwendet einen sehr kompakten SVG/Foto-Schalter direkt über der Hausansicht.
+V4e behebt den Ansichtswechsel und verwendet einen sehr kompakten SVG/Foto-Schalter direkt über der Hausansicht.
+
+
+## Neu in V4e
+- fein kalibrierte Fotomasken aus der manuellen Fotoabstimmung
+- Masken liegen extern in `data/photo-masks.json`
+- Fotoflächen sind direkt anklickbar
+- sehr dünne Auswahlkontur in der Fotovorschau
+- unangepasste Zonen bleiben vollständig im Originalfoto
+- dunkle Vordergrundobjekte wie Baum, Lampe und Büsche werden weitgehend von der Umfärbung ausgeschlossen
+- Licht, Schatten und Putzstruktur bleiben erhalten
+
+
+## Neu in V4e
+- massive Caparol-Erweiterung
+- `Caparol 3D-System PLUS` jetzt mit 177 Tönen
+- `Caparol 3D-EXTERIOR A1` jetzt mit 119 kuratierten Tönen
+- viele zusätzliche Codes aus Familien wie:
+  - Palazzo
+  - Ginster
+  - Siena
+  - Granit
+  - Tundra
+  - Patina
+  - Oliv
+  - Rose
+  - Cameo
+  - Lachs
+  - Onyx
+  - Pacific
+  - Lazur
+  - Coelin
+  - Verona
+  - Arctis
+
+## Hinweis
+Die Caparol-Erweiterung ist für die aktuelle Entwurfsarbeit gedacht. 
+Die Codes sind stark erweitert, die angezeigten Bildschirmfarben bleiben aber weiterhin
+unverbindliche Arbeitswerte.
