@@ -615,7 +615,7 @@
         </div>
         <div class="canvas-footer">
           <span>Fotovorschau = kalibrierte, unverbindliche Annäherung</span>
-          <span class="build-version">V4d</span>
+          <span class="build-version">V4e</span>
         </div>
       </div>
     </div>
@@ -623,7 +623,7 @@
     <aside class="zone-panel">
       <div class="panel-title-row">
         <strong>Hausfarben-Planer</strong>
-        <span>V4d</span>
+        <span>V4e</span>
       </div>
 
       <div class="selection-bar">
@@ -1143,7 +1143,7 @@ function setPalette(palette) {
 
 function snapshotZones(){const out={};Object.keys(zoneNames).forEach(id=>{const e=document.querySelector(`.zone[data-zone-id="${id}"]`);if(e)out[id]={hex:e.style.fill||getComputedStyle(e).fill,code:e.dataset.colorCode||'Original',name:e.dataset.colorName||'Original'};});return out;}
 function applySnapshot(s){Object.entries(s||{}).forEach(([id,v])=>document.querySelectorAll(`.zone[data-zone-id="${id}"]`).forEach(e=>{e.style.fill=v.hex;if(v.code&&v.code!=='Original')e.dataset.colorCode=v.code;else delete e.dataset.colorCode;if(v.name&&v.name!=='Original')e.dataset.colorName=v.name;else delete e.dataset.colorName;}));const f=s?.facadeMain;selectedMainFacadeColor=f&&f.code!=='Original'?{code:f.code,name:f.name,hex:f.hex,category:''}:null;renderSuggestions();renderPhotoPreview();}
-function payload(){return{version:3,build:'V4d',name:document.getElementById('designName').value.trim()||'Unbenannte Variante',palette:activePalette,collection:activeCollectionId,suggestionMode,zones:snapshotZones(),savedAt:new Date().toISOString()};}
+function payload(){return{version:3,build:'V4e',name:document.getElementById('designName').value.trim()||'Unbenannte Variante',palette:activePalette,collection:activeCollectionId,suggestionMode,zones:snapshotZones(),savedAt:new Date().toISOString()};}
 function loadPayload(d){if(!d?.zones)throw new Error();document.getElementById('designName').value=d.name||'Import';suggestionMode=d.suggestionMode||'tone';document.querySelectorAll('.suggestion-mode').forEach(e=>e.classList.toggle('active',e.dataset.mode===suggestionMode));setCollection(d.collection || (d.palette==='caparol'?'caparol-plus':'ral-classic'));applySnapshot(d.zones);clearSelection();document.querySelector('.status-line').textContent=`Entwurf „${d.name||'Import'}“ geladen.`;}
 function safeName(n){return(n||'hausfarben').trim().replace(/[^a-zA-Z0-9äöüÄÖÜß_-]+/g,'_')||'hausfarben';}
 function download(content,name,type){const b=content instanceof Blob?content:new Blob([content],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
