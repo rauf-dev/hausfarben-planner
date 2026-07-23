@@ -584,7 +584,13 @@
     .view-pane { display:none; }
     .view-pane.active { display:block; }
     #photoPane { background:#f2f3f4; }
+    #photoPane { position:relative; }
+    .photo-canvas-wrap { position:relative; width:100%; }
     #photoPreviewCanvas { display:block; width:100%; height:auto; background:#e8ecf0; }
+    #photoMaskOverlay { position:absolute; inset:0; width:100%; height:100%; display:block; }
+    .photo-hit { fill:transparent; stroke:transparent; stroke-width:1.2; vector-effect:non-scaling-stroke; cursor:pointer; }
+    .photo-hit:hover { fill:rgba(255,255,255,.05); stroke:#fff; }
+    .photo-hit.selected { fill:rgba(255,204,0,.04); stroke:#ffcc00; stroke-width:1.7; }
     .canvas-footer { display:flex; justify-content:space-between; gap:8px; padding:3px 8px; border-top:1px solid #e1e5e8; color:#7a848d; background:#fafbfc; font-size:.58rem; line-height:1.2; }
     .build-version { font-weight:700; letter-spacing:.03em; }
 </style>
@@ -602,11 +608,14 @@
           <svg id="house" viewBox="0 0 860 1000" role="img" aria-label="Vektorzeichnung der Hausfassade"></svg>
         </div>
         <div id="photoPane" class="view-pane">
-          <canvas id="photoPreviewCanvas" width="1542" height="2048" aria-label="Fotovorschau der Hausfassade"></canvas>
+          <div class="photo-canvas-wrap">
+            <canvas id="photoPreviewCanvas" width="1542" height="2048" aria-label="Fotovorschau der Hausfassade"></canvas>
+            <svg id="photoMaskOverlay" viewBox="0 0 1542 2048" aria-label="Auswahlflächen der Fotovorschau"></svg>
+          </div>
         </div>
         <div class="canvas-footer">
-          <span>Fotovorschau = unverbindliche Annäherung</span>
-          <span class="build-version">V4b</span>
+          <span>Fotovorschau = kalibrierte, unverbindliche Annäherung</span>
+          <span class="build-version">V4d</span>
         </div>
       </div>
     </div>
@@ -614,7 +623,7 @@
     <aside class="zone-panel">
       <div class="panel-title-row">
         <strong>Hausfarben-Planer</strong>
-        <span>V4b</span>
+        <span>V4d</span>
       </div>
 
       <div class="selection-bar">
@@ -684,54 +693,55 @@ const photoCtx = photoCanvas.getContext('2d', { willReadFrequently: true });
 let activePreview = 'vector';
 const photoImage = new Image();
 let photoReady = false;
-const photoMasks = {
-  facadeMain: [
-    [[192,894],[530,894],[530,1448],[188,1448],[188,1106],[277,1106],[277,1030],[190,1030]],
-    [[534,894],[1008,894],[1008,1095],[745,1095],[745,1448],[532,1448]],
-    [[1008,895],[1251,895],[1254,1450],[1126,1450],[1127,1046],[1008,1046]],
-    [[544,313],[1000,313],[1003,888],[545,888]],
-    [[544,139],[673,139],[673,308],[544,308]],
-    [[874,140],[1001,140],[1001,307],[874,307]]
-  ],
-  base: [
-    [[188,1451],[1254,1451],[1254,1537],[188,1537]]
-  ],
-  dividersAll: [
-    [[190,1034],[1254,1034],[1254,1103],[190,1103]],
-    [[192,810],[536,810],[536,891],[192,891]],
-    [[1010,811],[1255,811],[1255,891],[1010,891]]
-  ],
-  dormerGable: [
-    [[537,133],[775,46],[1005,132],[961,306],[582,306]]
-  ],
-  surroundsOuterAll: [
-    [[273,1263],[533,1263],[533,1290],[273,1290]],[[273,1290],[298,1290],[298,1506],[273,1506]],[[508,1290],[533,1290],[533,1506],[508,1506]],
-    [[1029,1267],[1144,1267],[1144,1292],[1029,1292]],[[1029,1292],[1052,1292],[1052,1530],[1029,1530]],[[1121,1292],[1144,1292],[1144,1530],[1121,1530]],
-    [[551,341],[680,341],[680,364],[551,364]],[[551,364],[575,364],[575,528],[551,528]],[[656,364],[680,364],[680,528],[656,528]],
-    [[866,342],[997,342],[997,364],[866,364]],[[866,364],[889,364],[889,529],[866,529]],[[974,364],[997,364],[997,529],[974,529]],
-    [[292,893],[474,893],[474,916],[292,916]],[[292,916],[315,916],[315,1122],[292,1122]],[[451,916],[474,916],[474,1122],[451,1122]],
-    [[1050,892],[1171,892],[1171,915],[1050,915]],[[1050,915],[1071,915],[1071,1123],[1050,1123]],[[1149,915],[1171,915],[1171,1123],[1149,1123]],
-    [[386,1250],[628,1250],[628,1274],[386,1274]],[[386,1274],[411,1274],[411,1549],[386,1549]],[[603,1274],[628,1274],[628,1549],[603,1549]]
-  ],
-  windowBottomsAll: [
-    [[273,1506],[533,1506],[533,1529],[273,1529]],
-    [[1029,1530],[1144,1530],[1144,1552],[1029,1552]],
-    [[551,528],[680,528],[680,551],[551,551]],
-    [[866,529],[997,529],[997,552],[866,552]],
-    [[292,1122],[474,1122],[474,1145],[292,1145]],
-    [[1050,1123],[1171,1123],[1171,1144],[1050,1144]]
-  ],
-  door: [
-    [[411,1279],[603,1279],[603,1560],[411,1560]]
-  ]
-};
-const zoneRenderStrength = { facadeMain:0.72, base:0.58, dividersAll:0.68, dormerGable:0.7, surroundsOuterAll:0.72, windowBottomsAll:0.62, door:0.82 };
+let photoMasks = {};
+let photoMasksReady = false;
+const photoMaskOverlay = document.getElementById('photoMaskOverlay');
 
-function hexToRgb255(hex) {
-  const value = (hex || '#000000').replace('#', '');
-  const full = value.length === 3 ? value.split('').map(ch => ch + ch).join('') : value;
-  const num = parseInt(full, 16);
-  return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+async function loadPhotoMasks() {
+  const response = await fetch('data/photo-masks.json');
+  if (!response.ok) throw new Error('Fotomasken konnten nicht geladen werden.');
+  const json = await response.json();
+  photoMasks = Object.fromEntries(
+    Object.entries(json.zones).map(([id, zone]) => [id, zone.polygons])
+  );
+  photoMasksReady = true;
+  renderPhotoMaskOverlay();
+  renderPhotoPreview();
+}
+
+function renderPhotoMaskOverlay() {
+  if (!photoMasksReady) return;
+  photoMaskOverlay.innerHTML = '';
+  Object.entries(photoMasks).forEach(([zoneId, polygons]) => {
+    polygons.forEach(points => {
+      const polygon = document.createElementNS(NS, 'polygon');
+      polygon.setAttribute('points', points.map(point => point.join(',')).join(' '));
+      polygon.setAttribute('class', `photo-hit ${selectedZoneId === zoneId ? 'selected' : ''}`);
+      polygon.dataset.zoneId = zoneId;
+      polygon.addEventListener('click', event => {
+        event.stopPropagation();
+        selectZone(zoneId);
+      });
+      photoMaskOverlay.appendChild(polygon);
+    });
+  });
+}
+
+const zoneRenderStrength = { facadeMain:0.58, base:0.48, dividersAll:0.60, dormerGable:0.60, surroundsOuterAll:0.62, windowBottomsAll:0.56, door:0.72 };
+
+function cssColorToRgb(value) {
+  if (!value) return null;
+  const color = value.trim();
+  if (color.startsWith('#')) {
+    const raw = color.slice(1);
+    const full = raw.length === 3 ? raw.split('').map(ch => ch + ch).join('') : raw;
+    const num = parseInt(full, 16);
+    if (Number.isNaN(num)) return null;
+    return { r:(num >> 16) & 255, g:(num >> 8) & 255, b:num & 255 };
+  }
+  const match = color.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/i);
+  if (match) return { r:+match[1], g:+match[2], b:+match[3] };
+  return null;
 }
 
 function rgbToHsl255(r, g, b) {
@@ -788,18 +798,47 @@ function zoneColorSnapshot() {
   return snapshotZones();
 }
 
+function photoPixelEligible(zoneId, r, g, b) {
+  const hsl = rgbToHsl255(r, g, b);
+
+  // Preserve dark foreground objects such as the tree, lamp and shrubs.
+  if (zoneId !== 'door' && hsl.l < 0.27) return false;
+
+  if (zoneId === 'facadeMain') {
+    // Original façade is a light, muted green. Avoid sky, dark foliage and windows.
+    return hsl.l > 0.34 && hsl.s < 0.58 && g >= r * 0.82 && g >= b * 0.78;
+  }
+  if (zoneId === 'dividersAll' || zoneId === 'dormerGable' ||
+      zoneId === 'surroundsOuterAll' || zoneId === 'windowBottomsAll') {
+    // Original accent is a light pink/beige.
+    return hsl.l > 0.34 && r >= g * 0.92 && r >= b * 0.92 && hsl.s < 0.62;
+  }
+  if (zoneId === 'base') {
+    return hsl.l > 0.28 && hsl.s < 0.42;
+  }
+  if (zoneId === 'door') {
+    // Keep reflective glass highlights, but recolor the dark teal door material.
+    return hsl.l < 0.48 && g >= r * 0.75;
+  }
+  return true;
+}
+
 function renderPhotoPreview() {
-  if (!photoReady) return;
+  if (!photoReady || !photoMasksReady) return;
   photoCtx.clearRect(0, 0, photoCanvas.width, photoCanvas.height);
   photoCtx.drawImage(photoImage, 0, 0, photoCanvas.width, photoCanvas.height);
   const zoneColors = zoneColorSnapshot();
   const drawOrder = ['base','facadeMain','dividersAll','dormerGable','surroundsOuterAll','windowBottomsAll','door'];
 
   drawOrder.forEach(zoneId => {
-    const color = zoneColors[zoneId]?.hex;
+    const zoneValue = zoneColors[zoneId];
+    const color = zoneValue?.hex;
     const polygons = photoMasks[zoneId];
-    if (!color || !polygons?.length) return;
-    const { r: tr, g: tg, b: tb } = hexToRgb255(color);
+    // Untouched zones must show the original photograph without an overlay.
+    if (!color || zoneValue?.code === 'Original' || !polygons?.length) return;
+    const parsed = cssColorToRgb(color);
+    if (!parsed) return;
+    const { r: tr, g: tg, b: tb } = parsed;
     const targetHsl = rgbToHsl255(tr, tg, tb);
     const alpha = zoneRenderStrength[zoneId] || 0.7;
 
@@ -824,6 +863,7 @@ function renderPhotoPreview() {
         if (!inside) continue;
         const idx = (py * w + px) * 4;
         const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+        if (!photoPixelEligible(zoneId, r, g, b)) continue;
         const hsl = rgbToHsl255(r, g, b);
         let newL = hsl.l;
         if (targetHsl.l > 0.72) newL = Math.min(0.95, hsl.l * 0.78 + targetHsl.l * 0.22);
@@ -851,6 +891,13 @@ function setPreviewMode(mode) {
 
 photoImage.addEventListener('load', () => { photoReady = true; renderPhotoPreview(); });
 photoImage.src = PHOTO_SRC;
+photoMaskOverlay.addEventListener('click', event => {
+  if (event.target === photoMaskOverlay) clearSelection();
+});
+loadPhotoMasks().catch(error => {
+  console.error(error);
+  document.querySelector('.status-line').textContent = 'Fotomasken konnten nicht geladen werden.';
+});
 
 const measured = {
   houseWidth: 698,
@@ -1096,7 +1143,7 @@ function setPalette(palette) {
 
 function snapshotZones(){const out={};Object.keys(zoneNames).forEach(id=>{const e=document.querySelector(`.zone[data-zone-id="${id}"]`);if(e)out[id]={hex:e.style.fill||getComputedStyle(e).fill,code:e.dataset.colorCode||'Original',name:e.dataset.colorName||'Original'};});return out;}
 function applySnapshot(s){Object.entries(s||{}).forEach(([id,v])=>document.querySelectorAll(`.zone[data-zone-id="${id}"]`).forEach(e=>{e.style.fill=v.hex;if(v.code&&v.code!=='Original')e.dataset.colorCode=v.code;else delete e.dataset.colorCode;if(v.name&&v.name!=='Original')e.dataset.colorName=v.name;else delete e.dataset.colorName;}));const f=s?.facadeMain;selectedMainFacadeColor=f&&f.code!=='Original'?{code:f.code,name:f.name,hex:f.hex,category:''}:null;renderSuggestions();renderPhotoPreview();}
-function payload(){return{version:3,build:'V4b',name:document.getElementById('designName').value.trim()||'Unbenannte Variante',palette:activePalette,collection:activeCollectionId,suggestionMode,zones:snapshotZones(),savedAt:new Date().toISOString()};}
+function payload(){return{version:3,build:'V4d',name:document.getElementById('designName').value.trim()||'Unbenannte Variante',palette:activePalette,collection:activeCollectionId,suggestionMode,zones:snapshotZones(),savedAt:new Date().toISOString()};}
 function loadPayload(d){if(!d?.zones)throw new Error();document.getElementById('designName').value=d.name||'Import';suggestionMode=d.suggestionMode||'tone';document.querySelectorAll('.suggestion-mode').forEach(e=>e.classList.toggle('active',e.dataset.mode===suggestionMode));setCollection(d.collection || (d.palette==='caparol'?'caparol-plus':'ral-classic'));applySnapshot(d.zones);clearSelection();document.querySelector('.status-line').textContent=`Entwurf „${d.name||'Import'}“ geladen.`;}
 function safeName(n){return(n||'hausfarben').trim().replace(/[^a-zA-Z0-9äöüÄÖÜß_-]+/g,'_')||'hausfarben';}
 function download(content,name,type){const b=content instanceof Blob?content:new Blob([content],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
@@ -1295,12 +1342,14 @@ function selectZone(id) {
     el.classList.toggle('selected', el.dataset.zoneId === id);
   });
   document.getElementById('activeZone').textContent = zoneNames[id] || id;
+  renderPhotoMaskOverlay();
 }
 
 function clearSelection() {
   selectedZoneId = null;
   document.querySelectorAll('.zone').forEach(el => el.classList.remove('selected'));
   document.getElementById('activeZone').textContent = 'Kein Bereich ausgewählt';
+  renderPhotoMaskOverlay();
 }
 
 
